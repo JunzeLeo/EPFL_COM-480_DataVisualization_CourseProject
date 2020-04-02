@@ -27,10 +27,11 @@
 
 [Urbanization:](https://ourworldindata.org/urbanization) This dataset contains urbanization related data of each country, for example, share of populations living in urban areas, GDP per capita and employment in agriculture.
 
-[Deforestation:](https://datacatalog.worldbank.org/annual-deforestation-change) This dataset contains data about natural forest area to other uses, including shifting cultivation, permanent agriculture, ranching, settlements, and infrastructure development.
 
-[Threatened species](https://stats.oecd.org/viewhtml.aspx?datasetcode=WILD_LIFE&lang=en) This dataset contains information about number of dangerous species in danger per
+[Deforestation:](http://www.fao.org/faostat/en/?#data/GF) This dataset contains data from Food and Agriculture Organization of the United Nations about the area of forest land per country and net CO2 emission/removal from Forest Land.
 
+
+[Threatened species](https://stats.oecd.org/viewhtml.aspx?datasetcode=WILD_LIFE&lang=en) This dataset contains information about number of species in danger with respect to country and degree of danger.
 
 ### 2.2 Problematic
 
@@ -56,8 +57,20 @@ In this project, we would like to visualize the reasons for global warming and i
 
 ### 2.3 Exploratory Data Analysis
 <!-- Pre-processing of the data set you chose: basic statistics + insights about the data -->
-size, data/tuples, classes/columns, max 2 figures per dataset max.,
 
+<!-- Your big sis adds this: we can show size, data/tuples, classes/columns, max 2 figures per dataset max., -->
+
+The dataset for the **deforestation** has 50'562 rows in total. The dataset is well prepared, after a simple cleaning, we only needs to extract useful information from it. For each of the 237 countries, it shows the forest land area and the corresponding implied emission factor for CO2 from 1990 to 2017. This dataset give us information about how the forest land area evoluate during 28 years and how many CO2 it emits or absorbs.
+
+![Here is an example plot of the given data, I let my big bros decide to use it or not](https://i.imgur.com/Nuc3iZO.png)
+
+
+The dataset for **threatened species** has 3'385 rows in total. We extract from the raw data the following information: 
+- Category: the degree of danger of the species (e.g. endangered, critically endangered, etc.)
+- Class: e.g. mammals, birds, etc.
+- Country: 40 countries in total
+- Unit: either the value is a number or a percentage
+- Value: the actual number or percentage 
 
 ### 2.4 Related work
 

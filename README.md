@@ -13,73 +13,68 @@
 **10% of the final grade**
 
 ### 2.1 Dataset
-<!-- 
-1. Datasets. 
-2. Quality of the data it contains 
-3. how much preprocessing require for VIZ
--->
 
-[Earth Surface Temperature:](https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data) This dataset contains land and ocean temperature since 1750 by different scales (eg. country, state, major city etc).
+[**Earth Surface Temperature**:](https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data) This dataset contains the average temperature of major cities since 1849. Some of the temperature data before the 1940s is missing due to the lack of weather stations and we could focus on the temperature variation in recent years.
 
-[Impact of Countries on Global Warming:](https://www.kaggle.com/catamount11/who-is-resposible-for-global-warming) This dataset contains the amount of CO2 emissions of each country from 1960 to 2018 and some meta data of each country (eg. location, income etc).
+[**Impact of Countries on Global Warming**:](https://www.kaggle.com/catamount11/who-is-resposible-for-global-warming) This dataset contains the amount of $CO_2$ emissions of each country from 1960 to 2018 (2014 actually) and some metadata of each country (e.g. location, income, etc.). The data is well-prepared. 
 
-[Global Food & Agriculture Statistics:](https://www.kaggle.com/unitednations/global-food-agriculture-statistics) This dataset contains agriculture data (eg. crops, fertilizer, forest, land etc.) for 200 countries and more than 200 primary products.
+[**Global Food & Agriculture Statistics**:](https://www.kaggle.com/unitednations/global-food-agriculture-statistics) This dataset contains agriculture data (e.g. crops, fertilizer, forest, land, etc.) for 200 countries and more than 200 primary products. Although this dataset provides very rich information, it results in a bit higher workload for data preprocessing. We will first decide what we could like to visualize and extract that information.
 
-[Urbanization:](https://ourworldindata.org/urbanization) This dataset contains urbanization related data of each country, for example, share of populations living in urban areas, GDP per capita and employment in agriculture.
+[**Urbanization**:](https://ourworldindata.org/urbanization) This dataset contains urbanization related factors of each country, for example, the share of populations living in urban areas, GDP per capita and employment rate in agriculture. The data is well-prepared but these factors have different time range.
 
 
-[Deforestation:](http://www.fao.org/faostat/en/?#data/GF) This dataset contains data from Food and Agriculture Organization of the United Nations about the area of forest land per country and net CO2 emission/removal from Forest Land.
+[**Deforestation**:](http://www.fao.org/faostat/en/?#data/GF) This dataset is in CSV format and contains data from the Food and Agriculture Organization of the United Nations about the area of forest land per country and net $CO_2$ emission/removal from Forest Land. It is clean and we only need to remove some unrelated columns for use.
 
 
-[Threatened species](https://stats.oecd.org/viewhtml.aspx?datasetcode=WILD_LIFE&lang=en) This dataset contains information about number of species in danger with respect to country and degree of danger.
+[**Threatened species:**](https://stats.oecd.org/viewhtml.aspx?datasetcode=WILD_LIFE&lang=en) This dataset is in CSV format and contains information about the number of species in danger with respect to the  country and their degree of danger. It does not have information for every country (only 40), but having the important ones, like Australia, should be enough for us. The dataset is clean and we will need to extract useful columns. 
 
 ### 2.2 Problematic
 
 #### Background
-Since the dawn of the Industrial Revolution in the 19th centry, the average temperatry of the Earth has [increased more than 1.0 Celsius](https://earthobservatory.nasa.gov/world-of-change/decadaltemp.php). However, in recent years, global warming and climate change have been the subject of a great deal of political controversy, especially in the U.S. The U.S. president, Trump, has critisizes in his twitter that the global warming is "[a hoax](https://twitter.com/realDonaldTrump/status/427226424987385856)", "[fictional](https://twitter.com/realDonaldTrump/status/509436043368873984)", and even "[bullshit](https://twitter.com/realDonaldTrump/status/418542137899491328)". 
+Since the dawn of the Industrial Revolution in the 19th century, the average temperature of the Earth has [increased more than 1.0 Celsius](https://earthobservatory.nasa.gov/world-of-change/decadaltemp.php). However, in recent years, global warming and climate change have been the subject of a great deal of political controversy, especially in the U.S.. The U.S. president, Trump, has criticized in his twitter that the global warming is "[a hoax](https://twitter.com/realDonaldTrump/status/427226424987385856)", "[fictional](https://twitter.com/realDonaldTrump/status/509436043368873984)", and even "[bullshit](https://twitter.com/realDonaldTrump/status/418542137899491328)". 
 
 Is global warming real? What are its causes and consequences? Especially, **what are the impacts on lives?**
 
 #### Motivation
-<!-- 
-1. What am I trying to show with my VIZ
-2. overview for the project, motivation, target audience.
- -->
-
-While the world is overwhelmed with the COVID-19 pandemic, the Earth is still warming and many lifes are suffering from the heating planet. A recent news reports that the anarctica has hitted the highest temperature on record of 18.3C in February 2020. Climate zone for lifes now is shrinking.
+ 
+While the world is overwhelmed with the COVID-19 pandemic, the Earth is still warming and many lives are suffering from the heating planet. A recent news reports that Antarctica has hit the highest temperature on record of 18.3C in February 2020. The climate zone for lives now is shrinking.
 
 To keep within the climate zone for survival, most species on this planet, including plants, will have to migrate[](https://wwf.panda.org/our_work/wildlife/problems/climate_change/). However, many species will not be able to redistribute themselves fast enough, i.e. these species may well become extinct. 
 
-Human beings are no exception. Global warming could lead to extrem climates and wethers, such as ozone depletion, El Niño, increased danger of wildland fires, global spread of infectious diseases, drought and flood, which would seriously affect food-producing system and humanitariarism.
+Human beings are no exception. Global warming could lead to extreme climates and the weather, such as ozone depletion, El Niño, increased danger of wildland fires, the global spread of infectious diseases, drought and flood, which would seriously affect the food-producing system and humanitarianism.
 
-In this project, we would like to visualize the reasons for global warming and its effects to species and human beings so that to appeal more concern from general public to this global challenge. 
+In this project, we would like to visualize the factors related to global warming and its effects on species and human beings so that to appeal more concern from the general public to this global challenge. 
 
 
 ### 2.3 Exploratory Data Analysis
-<!-- Pre-processing of the data set you chose: basic statistics + insights about the data -->
 
-<!-- Your big sis adds this: we can show size, data/tuples, classes/columns, max 2 figures per dataset max., -->
+#### 1. Global temperature and $CO_2$ emission
+As the most direct view of Global warming, we collect data of the **earth surface temperature** which has 239'176 rows in total, corresponding to monthly temperature since 1849.
 
-The dataset for the **deforestation** has 50'562 rows in total. The dataset is well prepared, after a simple cleaning, we only needs to extract useful information from it. For each of the 237 countries, it shows the forest land area and the corresponding implied emission factor for CO2 from 1990 to 2017. This dataset give us information about how the forest land area evoluate during 28 years and how many CO2 it emits or absorbs.
+For **$CO_2$ emission**, we have data of 263 countries and areas around the world, from 1960 to 2014. Countries and areas are classified according to their location and Income. The $CO_2$ emissions are computed as metric tons per capita. 
 
-![Here is an example plot of the given data, I let my big bros decide to use it or not](https://i.imgur.com/Nuc3iZO.png)
+As a very important factor of $CO_2$ emission and absorption, **deforestation** data will be included in our visualization. After data cleaning, our deforestation data have 237 countries, including data from 1990 to 2017. This gives us information about how the forest land area evolves for 28 years.
 
+#### 2. Food and agriculture
+The dataset for **food and agriculture** contains 5 main CSV files, including data for crops, fertilizers, forest, land and production indices. All the 5 files have similar structures. For each country and area, it provides the value of harvest area, yield, production quantity, etc. of different crops for every year between 1990 to 2007.
 
-The dataset for **threatened species** has 3'385 rows in total. We extract from the raw data the following information: 
-- Category: the degree of danger of the species (e.g. endangered, critically endangered, etc.)
-- Class: e.g. mammals, birds, etc.
-- Country: 40 countries in total
-- Unit: either the value is a number or a percentage
-- Value: the actual number or percentage 
+#### 3. Urbanization
+The date for the **urbanization** phenomenon contains the following aspects:
+
+- *Urban & Rural Population Proportion*: the share of population living in urban and rural areas from 1960 to 2017 of 261 countries.
+- *Urbanization vs. GDP*: the GDP per capita of 310 different countries from 1960 to 2016.
+- *Urbanization vs. Employment in Agriculture*: the share of the population employed in agriculture of 287 different countries from 1991 to 2017.
+
+#### 4. Threatened species
+The data for **threatened species** has 3'385 rows and has columns including *category* as the degree of danger of the species, *Class* (e.g. mammals, birds, etc.), *Unit* (number or percentage) and *Value*.
 
 ### 2.4 Related work
 
-<!-- 
-- What others have already done with the data?
-- Why is your approach original?
-- What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
--->
+Global warming has been already widely discussed in recent years, especially its causes and consequences. However, it is difficult to just blame global warming and let it be 100% responsible for everything, and some politicians use this argument to underestimate the impact of global warming. 
 
+In this project, we want to show how global warming is related to the commonly believed causes and consequences, not trying to conclude the causations but to show the correlations. Especially, we want to show to the general public how global warming is related to the living conditions for all the live beings on the planet, and it is up to them to believe how important is this problem.
+
+We have found in [this website](https://ourworldindata.org/urbanization) some beautiful examples of visualization, for example, using a world map, shows several dimension of information within one graph by using the x and y-axis, colors, the size of the data points, etc. Colors are one of the most important factors in visualization, so we have also found [this website](https://colorhunt.co/) with color panels that might be useful. 
 
 
 
@@ -93,3 +88,4 @@ The dataset for **threatened species** has 3'385 rows in total. We extract from 
 ## Milestone 3 (Thursday 28th May, 5pm)
 
 **80% of the final grade**
+

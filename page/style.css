@@ -77,11 +77,27 @@ Parafootersmall {
 }
 
 .trump{
-	max-width: 20rem;
-	margin-left: 0rem;
+	/* margin-left: 5%;
 	margin-right: auto;
+	margin-top: 2rem;
+	margin-bottom: 1rem; */
+	float: left;
+  max-width: 64%;
+  padding: 5px;
+	max-height: 20rem;
 }
 
+.penguin{
+	/* max-width:30%;
+	margin-right: 5%;
+	margin-right: auto;
+	margin-top: 2rem;
+	margin-bottom: 1rem; */
+	float: right;
+  max-width: 30%;
+  padding: 5px;
+	max-height: 20rem;
+}
 /* *****************************Navigation Bar****************************** */
 nav {
 	width: 100%;

@@ -82,7 +82,7 @@ We have found in [this website](https://ourworldindata.org/urbanization) some be
 
 **10% of the final grade**
 
-
+[Report](milestone2_report.pdf)
 
 
 ## Milestone 3 (Thursday 28th May, 5pm)

@@ -8,14 +8,12 @@ var xAxis = d3.axisBottom(x).tickFormat(function(d) { return d;});
 var yAxisLeft = d3.axisLeft(y).ticks(5);
 
 var svgAnimals = d3.select("#animals")
-                        .append("svg")
                           .attr("width", width + margin.left + margin.right)
                           .attr("height", height + margin.top + margin.bottom)
                         .append("g")
                           .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
 var svgSpecies = d3.select("#species")
-                        .append("svg")
                           .attr("width", width + margin.left + margin.right)
                           .attr("height", height + margin.top + margin.bottom)
                         .append("g")
@@ -203,17 +201,16 @@ function plotAnimals(){
 
 function plotSpecies(Species){
 
-console.log("hi")
   svgSpecies.selectAll("path.line").remove();
 
 
   svgSpecies.append('image')
-    .attr('xlink:href', "../image/"+Species+".jpg")
+    .attr('xlink:href', "../img/"+Species+".jpg")
     .attr('width', width)
     .attr('height', height)
 
   dataPath = "../data/" + Species + ".csv"
-  console.log(dataPath)
+  
   // Load the data
   d3.csv(dataPath, function(error, data) {
     // data = alldata.filter(function(d) {return d.country == country})
@@ -230,7 +227,7 @@ console.log("hi")
 
     // Define functions to draw lines
     var valuelineCR = d3.line()
-        .x(function(d) { return x(d.year); })
+        .x(function(d) { console.log(d); return x(d.year); })
         .y(function(d) { return y(d.CR + d.EN + d.VU); });
     var valuelineEN = d3.line()
         .x(function(d) { return x(d.year); })
@@ -256,14 +253,15 @@ console.log("hi")
 
     var lineCR = focus.append("path")
                       .datum(data)
+                      .attr("class", "line")
                       .attr("fill", "none")
                       .attr("stroke", colorCR)
                       .attr("stroke-linejoin", "round")
                       .attr("stroke-linecap", "round")
                       .attr("stroke-width", 2)
                       .attr("d", valuelineCR)
-                      .attr("class", "line")
-    console.log("hi")
+                      
+    console.log(data)
     var totalLengthCR = lineCR.node().getTotalLength();
     lineCR.attr("stroke-dasharray", totalLengthCR)
           .attr("stroke-dashoffset", totalLengthCR)
@@ -272,38 +270,38 @@ console.log("hi")
           .attr('stroke-dashoffset', 0);
 
     var lineVU = focus.append("path")
-        .datum(data)
-        .attr("fill", "none")
-        .style("stroke", colorVU)
-        // .attr("stroke", "green")
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-linecap", "round")
-        .attr("stroke-width", 2)
-        .attr("d", valuelineVU)
-        .attr("class", "line")
+                      .datum(data)
+                      .attr("fill", "none")
+                      .style("stroke", colorVU)
+                      // .attr("stroke", "green")
+                      .attr("stroke-linejoin", "round")
+                      .attr("stroke-linecap", "round")
+                      .attr("stroke-width", 2)
+                      .attr("d", valuelineVU)
+                      .attr("class", "line")
     var totalLengthVU = lineVU.node().getTotalLength();
     lineVU.attr("stroke-dasharray", totalLengthVU)
-        .attr("stroke-dashoffset", totalLengthVU)
-        .transition()
-        .duration(2000)
-        .attr('stroke-dashoffset', 0);
-
-    var lineEN = focus.append("path")
-          .datum(data)
-          .attr("fill", "none")
-          .style("stroke", colorEN)
-          // .attr("stroke", "green")
-          .attr("stroke-linejoin", "round")
-          .attr("stroke-linecap", "round")
-          .attr("stroke-width", 2)
-          .attr("d", valuelineEN)
-          .attr("class", "line")
-    var totalLengthEN = lineEN.node().getTotalLength();
-    lineEN.attr("stroke-dasharray", totalLengthEN)
-      .attr("stroke-dashoffset", totalLengthEN)
-      .transition()
+          .attr("stroke-dashoffset", totalLengthVU)
+          .transition()
           .duration(2000)
           .attr('stroke-dashoffset', 0);
+
+    var lineEN = focus.append("path")
+                      .datum(data)
+                      .attr("fill", "none")
+                      .style("stroke", colorEN)
+                      // .attr("stroke", "green")
+                      .attr("stroke-linejoin", "round")
+                      .attr("stroke-linecap", "round")
+                      .attr("stroke-width", 2)
+                      .attr("d", valuelineEN)
+                      .attr("class", "line")
+    var totalLengthEN = lineEN.node().getTotalLength();
+    lineEN.attr("stroke-dasharray", totalLengthEN)
+          .attr("stroke-dashoffset", totalLengthEN)
+          .transition()
+              .duration(2000)
+              .attr('stroke-dashoffset', 0);
 
     var areaCR = svgSpecies.append("path")
         .datum(data)
@@ -381,4 +379,4 @@ console.log("hi")
 
 
 plotAnimals();
-plotSpecies("Mammals")
+plotSpecies("Mammals");

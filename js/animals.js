@@ -201,16 +201,17 @@ function plotAnimals(){
 
 function plotSpecies(Species){
 
-  svgSpecies.selectAll("path.line").remove();
+  svgSpecies.selectAll("*").remove();
 
 
   svgSpecies.append('image')
     .attr('xlink:href', "../img/"+Species+".jpg")
     .attr('width', width)
     .attr('height', height)
+    .attr('opacity', 0.5)
 
   dataPath = "../data/" + Species + ".csv"
-  
+
   // Load the data
   d3.csv(dataPath, function(error, data) {
     // data = alldata.filter(function(d) {return d.country == country})
@@ -260,7 +261,7 @@ function plotSpecies(Species){
                       .attr("stroke-linecap", "round")
                       .attr("stroke-width", 2)
                       .attr("d", valuelineCR)
-                      
+
     // console.log(data)
     var totalLengthCR = lineCR.node().getTotalLength();
     lineCR.attr("stroke-dasharray", totalLengthCR)

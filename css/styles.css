@@ -10216,13 +10216,33 @@ header.masthead h1 {
 }
 .areaCR {
   fill: #f7436d;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 .areaEN {
   fill: #e08036;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 .areaVU {
   fill: #f0e246;
-  opacity: 0.5;
+  opacity: 0.7;
+}
+
+.button {
+    background-color: white;
+    border: none;
+    color: white;
+    padding: 0px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0px;
+    margin: px 0px;
+    cursor: pointer;
+    width: 10%;
+    height: 60px;
+}
+
+.imgScale{
+  width: 90%;
+  height: auto;
 }

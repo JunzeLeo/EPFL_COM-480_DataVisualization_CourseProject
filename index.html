@@ -161,25 +161,50 @@
         </section>
 
         <!-- Animals-->
-        <section class="page-section bg-info text-white" id="animalsSection">
+        <section class="page-section" id="animalsSection" >
           <div class="container text-center col-lg-9">
             <h2 class="text-center mt-0">Animals</h2>
+            <hr class="divider my-4"
+            <p class="mb-4 text-center">Click on images</p>
+            <div class="row">
+              <button class="button" onclick="plotSpecies('Mammals')"><img src="img/Mammals.jpg" class="imgScale" ></button>
+              <button class="button" onclick="plotSpecies('Birds')"><img src="img/Birds.jpg" class="imgScale"></button>
+              <button class="button" onclick="plotSpecies('Fishes')"><img src="img/Fishes.jpg" class="imgScale"></button>
+              <button class="button" onclick="plotSpecies('Fungi&protists')"><img src="img/Fungi&protists.jpg" class="imgScale"></button>
+              <button class="button" onclick="plotSpecies('Molluscs')"><img src="img/Molluscs.jpg" class="imgScale"></button>
+              <button class="button" onclick="plotSpecies('Amphibians')"><img src="img/Amphibians.jpg" class="imgScale"></button>
+              <button class="button" onclick="plotSpecies('Fishes')"><img src="img/Fishes.jpg" class="imgScale"></button>
+              <button class="button" onclick="plotSpecies('Reptiles')"><img src="img/Reptiles.jpg" class="imgScale"></button>
+              <button class="button" onclick="plotSpecies('Plants')"><img src="img/Plants.jpg" class="imgScale"></button>
+              <button class="button" onclick="plotSpecies('Other_invertebrates')"><img src="img/Other_invertebrates.jpg" class="imgScale"></button>
+            </div>
 
             <div class = "row">
               <div class="col-lg-6 col-sm-6">
-                  <svg id="species" width="100%" height="100%"></svg>
+                  <svg id="animals" width="100%" height="100%"></svg>
               </div>
               <div class="col-lg-6 col-sm-6">
-                  <svg id="animals" width="100%" height="100%"></svg>
+                <!-- <div class="row">
+                  <button class="button" onclick="plotSpecies('Mammals')"><img src="img/Mammals.jpg" style="width:60%; height=60%;"></button>
+                  <button class="button" onclick="plotSpecies('Birds')"><img src="img/Birds.jpg" style="width:60%; height=60%;"></button>
+                  <button class="button" onclick="plotSpecies('Fishes')"><img src="img/Fishes.jpg" style="width:60%; height=60%;"></button>
+                  <button class="button" onclick="plotSpecies('Fungi&protists')"><img src="img/Fungi&protists.jpg" style="width:60%; height=60%;"></button>
+                  <button class="button" onclick="plotSpecies('Molluscs')"><img src="img/Molluscs.jpg" style="width:60%; height=60%;"></button>
+                  <button class="button" onclick="plotSpecies('Amphibians')"><img src="img/Amphibians.jpg" style="width:60%; height=60%;"></button>
+                  <button class="button" onclick="plotSpecies('Fishes')"><img src="img/Fishes.jpg" style="width:60%; height=60%;"></button>
+                  <button class="button" onclick="plotSpecies('Reptiles')"><img src="img/Reptiles.jpg" style="width:60%; height=60%;"></button>
+                  <button class="button" onclick="plotSpecies('Plants')"><img src="img/Plants.jpg" style="width:60%; height=60%;"></button>
+                  <button class="button" onclick="plotSpecies('Other_invertebrates')"><img src="img/Other_invertebrates.jpg" style="width:60%; height=60%;"></button>
+                </div> -->
+                  <svg id="species" width="50%" height="50%"></svg>
               </div>
             </div>
 
             <script src="http://d3js.org/d3.v4.js"></script>
             <script src="js/animals.js"></script>
-
+            <h5 class="text-center mt-5">Domain knowledge</h4>
+            <p class="mb-4 text-justify">No one knows animals better than me</p>
           </div>
-          <h5 class="text-center mt-5">Domain knowledge</h4>
-          <p class="text-white-75 mb-4 text-justify">No one knows animals better than me</p>
         </section>
 
         <!-- Conclution-->

@@ -2,13 +2,13 @@
 // The worldMap_temperature
 var marginMapTemp = {top: 20 , right: 20, bottom: 20, left: 20};   // top left is the origin of a svg, x leftward, y downward
 var beginYearMapTemp = 1898, yearIndMapTemp = 0, playingMapTemp = false, mapTempDuration = 200;
-var svgMapTemp = d3.select("#worldMap_temperature"),
+var svgMapTemp = d3.select("#mapTemp"),
     widthMapTemp = +svgMapTemp.attr("width"),
     heightMapTemp = +svgMapTemp.attr("height");
 
 // Map and projection
 var projection = d3.geoMercator()
-  .scale(55)
+  .scale(60)
   .center([0,20])
   .translate([widthMapTemp / 2, heightMapTemp / 2]);
 
@@ -44,7 +44,7 @@ function tempToArray(d){
 /* ***************** world avg temperature line chart settings ********************* */
 // The average temperature
 var marginAvgTempLine = {top: 20 , right: 100, bottom: 30, left: 25};   // top left is the origin of a svg, x leftward, y downward
-var svgAvgTempLine    = d3.select("#worldAverageTemperature"),
+var svgAvgTempLine    = d3.select("#worldAvgTemp"),
     widthAvgTempLine  = +svgAvgTempLine.attr("width") - marginAvgTempLine.left,
     heightAvgTempLine = +svgAvgTempLine.attr("height") - marginAvgTempLine.top;
 svgAvgTempLine.append("g")
@@ -77,9 +77,9 @@ function setWorldTempMap()
 {
   // Load external data and boot
   d3.queue()
-    .defer(d3.json, "world.geojson")
-    .defer(d3.csv, "countryAvgTemp.csv", function(d) { dataMapTemp.set(d.id, tempToArray(d)) })
-    .defer(d3.csv, "worldAvgTemp.csv", function(d) { dataWorldAvgTemp.set(d.id, tempToArray(d)) })
+    .defer(d3.json, "../data/world.geojson")
+    .defer(d3.csv, "../data/countryAvgTemp.csv", function(d) { dataMapTemp.set(d.id, tempToArray(d)) })
+    .defer(d3.csv, "../data/worldAvgTemp.csv", function(d) { dataWorldAvgTemp.set(d.id, tempToArray(d)) })
     .await(ready);
 
   function ready(error, topo) {
@@ -335,7 +335,7 @@ function animateWorldTempMap() {
 
   var timer;  // create timer object
 
-  d3.select('#play')  
+  d3.select('#playTemp')  
     .on('click', function() {
       // if the map will play, set a JS interval to repeate the map
       if( playingMapTemp == false ) {  

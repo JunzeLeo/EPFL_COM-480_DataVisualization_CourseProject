@@ -4,8 +4,7 @@ var margin = {top: 60, right: 30, bottom: 60, left: 60},
     height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
-var svgScatter = d3.select("#my_dataviz")
-  .append("svg")
+var svgScatter = d3.select("#urbForestTempScatter")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -20,8 +19,6 @@ var x = d3.scaleLinear()
   .range([ 0, width ]);
 svgScatter.append("g")
   .attr("transform", "translate(0," + height + ")")
-  // .style("fill", "orange")
-  .style("fill", "steelblue")
   .call(d3.axisBottom(x));
 
 
@@ -47,10 +44,7 @@ svgScatter.append("text")
     .attr("y", 0 - (margin.top/4))
     .attr("text-anchor", "middle")
     .style("font-size", "16px")
-    // .style("text-decoration", "underline")
     .text("Urbanization & Forest coverage");
-
-// legend
 
 
 var greyR = 3;
@@ -83,12 +77,20 @@ var highlight = function(d){
 // remove highlight
 var doNotHighlight = function(){
   looping = true;
+  var xinner = d3.scaleLinear()
+               .domain([5, 105])
+               .range([ 0, width ]),
+
+      yinner = d3.scaleLinear()
+               .domain([0, 21])
+               .range([ height, 0]);
+               
   d3.selectAll(".dot")
     .transition()
     .duration(200)
     .attr("class", function (d) { return "dot " + d.country } )
-    .attr("cx", function (d) { return x(d.urban); } )
-    .attr("cy", function (d) { return y(d.temp); } )
+    .attr("cx", function (d) { return xinner(d.urban); } )
+    .attr("cy", function (d) { return yinner(d.temp); } )
     .attr("r", function (d) { return d.forest*rScale; })
     .style("fill", "green" )
     .style("opacity", 0.5)
@@ -98,7 +100,8 @@ var doNotHighlight = function(){
 
 var looping = true
 function loopData (dataPath){
-  // d3.selectAll("svg > *").remove();
+  
+  // console.log(svgScatter.attr("transform"))
 
   var currentYear = minYear;
   var alldata = null;
@@ -108,8 +111,6 @@ function loopData (dataPath){
     .style("position", "absolute")
     .style("z-index", "10")
     .style("visibility", "hidden")
-    // .style("background", "#fff")
-    // .text("");
 
   // Read the data
   d3.csv(dataPath, function(data) {
@@ -124,13 +125,12 @@ function loopData (dataPath){
         .attr("class", function (d) { return "dot " + d.country } )
         .attr("cx", function (d) { return x(d.urban); } )
         .attr("cy", function (d) { return y(d.temp); } )
-        .attr("r", function (d) { return d.forest*0.1; })
+        .attr("r", function (d) { return d.forest*rScale; })
         .style("fill", "green" )
         .style("opacity", 0.5)
       .on("mouseover", function(d){ highlight(d); tooltip.text(d.country); return tooltip.style("visibility", "visible");})
       .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
       .on("mouseout", function(){ doNotHighlight(); return tooltip.style("visibility", "hidden");})
-      // .on("mouseleave", doNotHighlight)
       .on("click", function(d){plotLineForScatter(d.country);})
   })
 
@@ -141,21 +141,28 @@ function loopData (dataPath){
       currentYear = minYear
     }
 
+    // Add X axis
+    var xinner = d3.scaleLinear()
+                   .domain([5, 105])
+                   .range([ 0, width ]),
+
+        yinner = d3.scaleLinear()
+                   .domain([0, 21])
+                   .range([ height, 0]);
+
     data1 = alldata.filter(function(d) {return d.year == currentYear})
     svgScatter.selectAll("circle")
         .data(data1)
         .transition()
         .duration(frameRate)
-        // .delay(function(d, i) {return 1000} )
-        .attr("cx", function (d) { return x(d.urban); } )
-        .attr("cy", function (d) { return y(d.temp); } )
+        .attr("cx", function (d) { return xinner(d.urban); } )
+        .attr("cy", function (d) { return yinner(d.temp); } )
         .attr("r", function (d) { return d.forest*rScale; })
-
   }
   var interval = setInterval(updateGraph, frameRate);
 }
 
-loopData("ScatterData.csv")
+loopData("../data/ScatterData.csv")
 
 
 
@@ -165,20 +172,17 @@ var svgScatterLine;
 
 function plotLineForScatter(country){
   if(svgScatterLine != null){
-    // d3.selectAll("svg > *").remove();
-    // d3.selectAll("svg").remove();
     svgScatterLine.selectAll("path.line").remove();
     svgScatterLine.selectAll("text.title").remove();
   }
   else
   {
-    svgScatterLine = d3.select("body")
-                 .append("svg")
-                 .attr("width", width + margin.left + margin.right)
-                 .attr("height", height + margin.top + margin.bottom)
-                 .append("g")
-                 .attr("transform",
-                       "translate(" + margin.left + "," + margin.top + ")");
+    svgScatterLine = d3.select("#urbForestTempLine")
+                       .attr("width", width + margin.left + margin.right)
+                       .attr("height", height + margin.top + margin.bottom)
+                       .append("g")
+                       .attr("transform",
+                             "translate(" + margin.left + "," + margin.top + ")");
   }
 
   // Define the scales of axises
@@ -208,7 +212,7 @@ function plotLineForScatter(country){
       .y(function(d) { return y0(d.temp); });
       // .y(function(d) { return y1(d.temp); });
 
-  console.log(width, height)
+  // console.log(width, height)
 
   svgScatterLine.append("rect").attr("x",(width*0.6)).attr("y",(height*0.00)).attr("width", 6).attr("height", 6).style("fill", colorForest)
   svgScatterLine.append("rect").attr("x",(width*0.6)).attr("y",(height*0.04)).attr("width", 6).attr("height", 6).style("fill", colorTemp)
@@ -219,7 +223,7 @@ function plotLineForScatter(country){
 
 
   // Load the data
-  d3.csv("normScatterData.csv", function(error, alldata) {
+  d3.csv("../data/normScatterData.csv", function(error, alldata) {
     data = alldata.filter(function(d) {return d.country == country})
     data.forEach(function(d) {
         d.year = +d.year

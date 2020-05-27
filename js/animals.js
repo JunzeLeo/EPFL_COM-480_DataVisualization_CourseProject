@@ -227,7 +227,7 @@ function plotSpecies(Species){
 
     // Define functions to draw lines
     var valuelineCR = d3.line()
-        .x(function(d) { console.log(d); return x(d.year); })
+        .x(function(d) { return x(d.year); })
         .y(function(d) { return y(d.CR + d.EN + d.VU); });
     var valuelineEN = d3.line()
         .x(function(d) { return x(d.year); })
@@ -261,7 +261,7 @@ function plotSpecies(Species){
                       .attr("stroke-width", 2)
                       .attr("d", valuelineCR)
                       
-    console.log(data)
+    // console.log(data)
     var totalLengthCR = lineCR.node().getTotalLength();
     lineCR.attr("stroke-dasharray", totalLengthCR)
           .attr("stroke-dashoffset", totalLengthCR)

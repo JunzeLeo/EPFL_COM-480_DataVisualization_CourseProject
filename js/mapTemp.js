@@ -43,17 +43,17 @@ function tempToArray(d){
 
 /* ***************** world avg temperature line chart settings ********************* */
 // The average temperature
-var marginAvgTempLine = {top: 20 , right: 100, bottom: 30, left: 25};   // top left is the origin of a svg, x leftward, y downward
+var marginAvgTempLine = {top: 40 , right: 30, bottom: 35, left:45};   // top left is the origin of a svg, x leftward, y downward
 var svgAvgTempLine    = d3.select("#worldAvgTemp"),
-    widthAvgTempLine  = +svgAvgTempLine.attr("width") - marginAvgTempLine.left,
-    heightAvgTempLine = +svgAvgTempLine.attr("height") - marginAvgTempLine.top;
+    widthAvgTempLine  = +svgAvgTempLine.attr("width") - marginAvgTempLine.left - marginAvgTempLine.right,
+    heightAvgTempLine = +svgAvgTempLine.attr("height") - marginAvgTempLine.top - marginAvgTempLine.bottom;
 svgAvgTempLine.append("g")
               .attr("transform", 
                     "translate(" + marginAvgTempLine.left + "," + marginAvgTempLine.top + ")");
 
 // Define the scales of axises
-var xAvgTempLineScale = d3.scaleLinear().range([marginAvgTempLine.left, widthAvgTempLine]);
-var yAvgTempLineScale = d3.scaleLinear().range([heightAvgTempLine, marginAvgTempLine.top]);
+var xAvgTempLineScale = d3.scaleLinear().range([marginAvgTempLine.left, widthAvgTempLine + marginAvgTempLine.left]);
+var yAvgTempLineScale = d3.scaleLinear().range([heightAvgTempLine + marginAvgTempLine.top, marginAvgTempLine.top]);
 
 // Plot the axises
 var xAxisAvgTempLine = d3.axisBottom(xAvgTempLineScale).tickFormat(function(d) { return d;});
@@ -69,7 +69,7 @@ var drawWorldAvgTemp = d3.line()
 
 // gridlines in x axis function
 function draw_x_gridlines() { return d3.axisBottom(xAvgTempLineScale).ticks(5) }
-function draw_y_gridlines() { return d3.axisLeft(yAvgTempLineScale).ticks(5)}
+function draw_y_gridlines() { return d3.axisLeft(yAvgTempLineScale).ticks(5) }
 
 
 /* ******************** start animation ************************* */
@@ -77,9 +77,9 @@ function setWorldTempMap()
 {
   // Load external data and boot
   d3.queue()
-    .defer(d3.json, "../data/world.geojson")
-    .defer(d3.csv, "../data/countryAvgTemp.csv", function(d) { dataMapTemp.set(d.id, tempToArray(d)) })
-    .defer(d3.csv, "../data/worldAvgTemp.csv", function(d) { dataWorldAvgTemp.set(d.id, tempToArray(d)) })
+    .defer(d3.json, "./data/world.geojson")
+    .defer(d3.csv, "./data/countryAvgTemp.csv", function(d) { dataMapTemp.set(d.id, tempToArray(d)) })
+    .defer(d3.csv, "./data/worldAvgTemp.csv", function(d) { dataWorldAvgTemp.set(d.id, tempToArray(d)) })
     .await(ready);
 
   function ready(error, topo) {
@@ -177,7 +177,7 @@ function setWorldTempMap()
     // Add the axises
     svgAvgTempLine.append("g")          
                   .attr("class", "x axis")
-                  .attr("transform", "translate(0," + heightAvgTempLine + ")")
+                  .attr("transform", "translate(0," + (heightAvgTempLine + marginAvgTempLine.top) +")")
                   // .style("fill", "red")
                   .call(xAxisAvgTempLine);
 
@@ -187,22 +187,35 @@ function setWorldTempMap()
                   // .style("fill", "steelblue")
                   .call(yAxisAvgTempLine); 
 
+    // add labels
+    svgAvgTempLine.append("text")
+                  .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+                  .attr("transform", "translate("+ marginAvgTempLine.left/3 +","+((heightAvgTempLine + marginAvgTempLine.top)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+                  .text("World average temperature (ºC)");
+
+    svgAvgTempLine.append("text")
+                  .attr("x", (widthAvgTempLine/2 + marginAvgTempLine.left))
+                  .attr("y", (heightAvgTempLine + marginAvgTempLine.top + marginAvgTempLine.bottom) )
+                  .attr("text-anchor", "middle")
+                  .style("font-size", "16px")
+                  .text("Year");
+
     // add gridlines
     svgAvgTempLine.append("g")     
                   .attr("class", "grid")
-                  .attr("transform", "translate(0," + heightAvgTempLine + ")")
+                  .attr("transform", "translate(" + 10 + "," + (heightAvgTempLine + marginAvgTempLine.top) + ")")
                   .call(draw_x_gridlines()
-                  .tickSize(-heightAvgTempLine + marginAvgTempLine.top)
+                  .tickSize(-heightAvgTempLine)
                   .tickFormat("")
     )
 
-    svgAvgTempLine.append("g")
-                  .attr("class", "grid")
-                  .attr("transform", "translate(" + marginAvgTempLine.left + ",0)")
-                  .call(draw_y_gridlines()
-                  .tickSize(-widthAvgTempLine + marginAvgTempLine.left)
-                  .tickFormat("")
-    )
+    // svgAvgTempLine.append("g")
+    //               .attr("class", "grid")
+    //               .attr("transform", "translate(" + marginAvgTempLine.left + "," + 0 + ")")
+    //               .call(draw_y_gridlines()
+    //               .tickSize(-widthAvgTempLine)
+    //               .tickFormat("")
+    // )
 
     // This allows to find the closest X index of the mouse:
     var bisect = d3.bisector(function(d) { return d.year; }).left;

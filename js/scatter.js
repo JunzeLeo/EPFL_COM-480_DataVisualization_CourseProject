@@ -34,7 +34,8 @@ svgScatter.append("g")
 svgScatter.append("text")
     .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
     .attr("transform", "translate("+ (-width/12) +","+(height/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
-    .text("Temperature (°C)");
+    .text("Temperature (ºC)");
+
 svgScatter.append("text")
     .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
     .attr("transform", "translate("+ (width/2) +","+(height*1.13)+")")  // centre below axis
@@ -162,7 +163,7 @@ function loopData (dataPath){
   var interval = setInterval(updateGraph, frameRate);
 }
 
-loopData("../data/ScatterData.csv")
+loopData("./data/ScatterData.csv")
 
 
 
@@ -223,7 +224,7 @@ function plotLineForScatter(country){
 
 
   // Load the data
-  d3.csv("../data/normScatterData.csv", function(error, alldata) {
+  d3.csv("./data/normScatterData.csv", function(error, alldata) {
     data = alldata.filter(function(d) {return d.country == country})
     data.forEach(function(d) {
         d.year = +d.year

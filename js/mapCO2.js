@@ -56,18 +56,18 @@ function dataToDictArray(d){
 
 /* ***************** world avg temperature line chart settings ********************* */
 // The average temperature
-var marginAvgTempLineCO2 = {top: 20 , right: 100, bottom: 30, left: 35};   // top left is the origin of a svg, x leftward, y downward
+var marginAvgTempLineCO2 = {top: 60 , right: 40, bottom: 35, left: 40};   // top left is the origin of a svg, x leftward, y downward
 var svgAvgTempLineCO2    = d3.select("#mapCO2Line"),
-    widthAvgTempLineCO2  = +svgAvgTempLineCO2.attr("width") - marginAvgTempLineCO2.left,
-    heightAvgTempLineCO2 = +svgAvgTempLineCO2.attr("height") - marginAvgTempLineCO2.top;
+    widthAvgTempLineCO2  = +svgAvgTempLineCO2.attr("width") - marginAvgTempLineCO2.left - marginAvgTempLineCO2.right,
+    heightAvgTempLineCO2 = +svgAvgTempLineCO2.attr("height") - marginAvgTempLineCO2.top - marginAvgTempLineCO2.bottom;
 svgAvgTempLineCO2.append("g")
               .attr("transform", 
                     "translate(" + marginAvgTempLineCO2.left + "," + marginAvgTempLineCO2.top + ")");
 
 // Define the scales of axises
-var xAvgTempLineScaleCO2 = d3.scaleLinear().range([marginAvgTempLineCO2.left, widthAvgTempLineCO2]);
-var yAvgTempLineScaleCO2 = d3.scaleLinear().range([heightAvgTempLineCO2, marginAvgTempLineCO2.top]);
-var yAvgTempLineScale2CO2= d3.scaleLinear().range([heightAvgTempLineCO2, marginAvgTempLineCO2.top]);
+var xAvgTempLineScaleCO2 = d3.scaleLinear().range([marginAvgTempLineCO2.left, widthAvgTempLineCO2+marginAvgTempLineCO2.left]);
+var yAvgTempLineScaleCO2 = d3.scaleLinear().range([heightAvgTempLineCO2+marginAvgTempLineCO2.top, marginAvgTempLineCO2.top]);
+var yAvgTempLineScale2CO2= d3.scaleLinear().range([heightAvgTempLineCO2+marginAvgTempLineCO2.top, marginAvgTempLineCO2.top]);
 
 // Plot the axises
 var xAxisAvgTempLineCO2 = d3.axisBottom(xAvgTempLineScaleCO2).tickFormat(function(d) { return d;});
@@ -87,16 +87,16 @@ var drawWorldAvgTemp2CO2 = d3.line()
     .y(function(d) { return yAvgTempLineScale2CO2(d.values()[0]); });
 
 // gridlines in x axis function
-function draw_x_gridlines() { return d3.axisBottom(xAvgTempLineScaleCO2).ticks(5) }
+function draw_x_gridlines() { return d3.axisBottom(xAvgTempLineScaleCO2).ticks(13) }
 function draw_y_gridlines() { return d3.axisLeft(yAvgTempLineScaleCO2).ticks(5)}
 
 
 /* ******************** start animation ************************* */
-function drawCountryAxis(countryName)
+function drawCountryAxis(countryName, countFullName)
 {
 
   svgAvgTempLineCO2.selectAll("g").remove()
-
+  svgAvgTempLineCO2.selectAll("text.title").remove()
 
   // Scale the range of the data
   yAxisCarbon = []
@@ -121,7 +121,8 @@ function drawCountryAxis(countryName)
   // Add the axises
   svgAvgTempLineCO2.append("g")          
                 .attr("class", "x axis")
-                .attr("transform", "translate(0," + heightAvgTempLineCO2 + ")")
+                .style("stroke", "white")
+                .attr("transform", "translate(0," + (heightAvgTempLineCO2 + marginAvgTempLineCO2.top) + ")")
                 .call(xAxisAvgTempLineCO2);
 
   svgAvgTempLineCO2.append("g")
@@ -133,31 +134,66 @@ function drawCountryAxis(countryName)
   svgAvgTempLineCO2.append("g")       
                 .attr("class", "y axis2")  
                 .style("stroke", "green")
-                .attr("transform", "translate(" + widthAvgTempLineCO2 + " ,0)") 
+                .attr("transform", "translate(" + (widthAvgTempLineCO2+marginAvgTempLineCO2.left) + " ,0)") 
                 .call(yAxisAvgTempLine2CO2);
 
+  // add labels
+  svgAvgTempLineCO2.append("text")
+                .style("stroke", "white")
+                .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+                .attr("transform", "translate("+ 12 +","+((heightAvgTempLineCO2 + marginAvgTempLineCO2.top)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+                .text("CO2 emission (ton per capita)");
+
+  svgAvgTempLineCO2.append("text")
+                  .style("stroke", "white")
+                  .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+                  .attr("transform", "translate("+ (marginAvgTempLineCO2.left+widthAvgTempLineCO2+marginAvgTempLineCO2.right) +","+((heightAvgTempLineCO2 + marginAvgTempLineCO2.top)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+                  .text("Forest coverage(%)");
+
+  svgAvgTempLineCO2.append("text")
+                .style("stroke", "white")
+                .attr("x", (widthAvgTempLineCO2/2 + marginAvgTempLineCO2.left))
+                .attr("y", (heightAvgTempLineCO2 + marginAvgTempLineCO2.top + marginAvgTempLineCO2.bottom) )
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .text("Year");
+
+  svgAvgTempLineCO2.append("text")
+                .attr("class", "title")
+                .style("stroke", "white")
+                .attr("x", (widthAvgTempLineCO2/2 + marginAvgTempLineCO2.left))
+                .attr("y", (marginAvgTempLineCO2.top/2) )
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .text("Forest Coverage v.s. CO2 emission of")
+                .append('svg:tspan')
+                .attr('x', 0)
+                .attr('dy', 20)
+                .attr("x", (widthAvgTempLineCO2/2 + marginAvgTempLineCO2.left))
+                .attr("y", (marginAvgTempLineCO2.top/2) )
+                .text(countFullName);
 
   // add gridlines
   svgAvgTempLineCO2.append("g")     
                 .attr("class", "grid")
-                .attr("transform", "translate(0," + heightAvgTempLineCO2 + ")")
+                .attr("transform", "translate(0," + (heightAvgTempLineCO2 + marginAvgTempLineCO2.top) + ")")
                 .call(draw_x_gridlines()
-                .tickSize(-heightAvgTempLineCO2 + marginAvgTempLineCO2.top)
+                .tickSize(-heightAvgTempLineCO2)
                 .tickFormat("")
   )
 
-  svgAvgTempLineCO2.append("g")
-                .attr("class", "grid")
-                .attr("transform", "translate(" + marginAvgTempLineCO2.left + ",0)")
-                .call(draw_y_gridlines()
-                .tickSize(-widthAvgTempLineCO2 + marginAvgTempLineCO2.left)
-                .tickFormat("")
-  )
+  // svgAvgTempLineCO2.append("g")
+  //               .attr("class", "grid")
+  //               .attr("transform", "translate(" + marginAvgTempLineCO2.left + ",0)")
+  //               .call(draw_y_gridlines()
+  //               .tickSize(-widthAvgTempLineCO2 + marginAvgTempLineCO2.left)
+  //               .tickFormat("")
+  // )
 }
 
-function drawCoutryData(countryName){
+function drawCoutryData(countryName, countryFullName){
   
-  drawCountryAxis(countryName)
+  drawCountryAxis(countryName, countryFullName)
 
   svgAvgTempLineCO2.selectAll("path.line").remove()
 
@@ -211,10 +247,10 @@ function setWorldTempMapCO2()
 {
   // Load external data and boot
   d3.queue()
-    .defer(d3.json,"../data/world.geojson")
-    .defer(d3.csv, "../data/country_carbon_norm.csv", function(d) { dataMapTempCO2.set(d.id, dataToArray(d)) })
-    .defer(d3.csv, "../data/country_carbon_nonorm.csv", function(d) { dataCountryCarbon.set(d.id, dataToDictArray(d)) })
-    .defer(d3.csv, "../data/country_forest.csv", function(d) { dataCountryForest.set(d.id, dataToDictArray(d)) })
+    .defer(d3.json,"./data/world.geojson")
+    .defer(d3.csv, "./data/country_carbon_norm.csv", function(d) { dataMapTempCO2.set(d.id, dataToArray(d)) })
+    .defer(d3.csv, "./data/country_carbon_nonorm.csv", function(d) { dataCountryCarbon.set(d.id, dataToDictArray(d)) })
+    .defer(d3.csv, "./data/country_forest.csv", function(d) { dataCountryForest.set(d.id, dataToDictArray(d)) })
     .await(readyCO2);
 
   function readyCO2(error, topo) {
@@ -232,6 +268,7 @@ function setWorldTempMapCO2()
 
       tooltipCO2.text(d.properties['name'])
              .style("visibility", "visible")
+             .style("stroke", "white")
 
         // .style("stroke", "black")
 
@@ -248,7 +285,7 @@ function setWorldTempMapCO2()
         .duration(50)
 
       tooltipCO2.style("visibility", "hidden");
-        // .style("stroke", "transparent")
+                // .style("stroke", "transparent")
     }
 
     let mousemove = function(d){
@@ -257,11 +294,13 @@ function setWorldTempMapCO2()
     }
 
     let mouseClick = function(d) {
-      drawCoutryData(d.id)
+      drawCoutryData(d.id, d.properties['name'])
     }
 
     // console.log(dataMapTempCO2)
     // console.log(dataCountryCarbon)
+
+    drawCoutryData("USA", "United States")
 
     // Draw the map
     svgMapTempCO2.append("g")

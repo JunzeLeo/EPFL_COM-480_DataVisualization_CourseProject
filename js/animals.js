@@ -204,11 +204,12 @@ function plotSpecies(Species){
   svgSpecies.selectAll("*").remove();
 
 
-  svgSpecies.append('image')
-    .attr('xlink:href', "../img/"+Species+".jpg")
-    .attr('width', width)
-    .attr('height', height)
-    .attr('opacity', 0.5)
+  // svgSpecies.append('image')
+  //   .attr('xlink:href', "../img/"+Species+".jpg")
+  //   .attr('width', width)
+  //   .attr('height', height)
+  //   .attr('opacity', 0.5
+  // document.getElementById("animalsSection").style.background-image: url('../img/Mammals.jpg');
 
   dataPath = "../data/" + Species + ".csv"
 

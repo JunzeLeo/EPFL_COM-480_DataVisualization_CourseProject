@@ -135,6 +135,8 @@ function loopData (dataPath){
       .on("click", function(d){plotLineForScatter(d.country);})
   })
 
+  plotLineForScatter("France")
+
   function updateGraph(){
     if(!looping){return;}
     currentYear += 1
@@ -196,7 +198,7 @@ function plotLineForScatter(country){
 
   var yAxisLeft = d3.axisLeft(y0).ticks(5);
 
-  // var yAxisRight = d3.axisRight(y1).ticks(5);
+  function draw_x_gridlines() { return d3.axisBottom(x).ticks(13) }
 
   // Define two functions to draw two lines
   var valuelineForest = d3.line()
@@ -304,6 +306,17 @@ function plotLineForScatter(country){
     svgScatterLine.append("g")
         .attr("class", "y axis")
         .call(yAxisLeft);
+
+    // add gridlines
+    svgScatterLine.append("g")     
+                  .attr("class", "grid")
+                  .style("fill", "gray")
+                  .style("opacity", 0.5)
+                  .attr("transform", "translate(" + 0 + "," + (height) + ")")
+                  .call(draw_x_gridlines()
+                  .tickSize(-height)
+                  .tickFormat("")
+    )
 
     svgScatterLine.append("text")
         .attr("x", (width / 2))

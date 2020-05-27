@@ -68,7 +68,7 @@ var drawWorldAvgTemp = d3.line()
     .y(function(d) { return yAvgTempLineScale(d.values()[0][0]); });
 
 // gridlines in x axis function
-function draw_x_gridlines() { return d3.axisBottom(xAvgTempLineScale).ticks(5) }
+function draw_x_gridlines() { return d3.axisBottom(xAvgTempLineScale).ticks(6) }
 function draw_y_gridlines() { return d3.axisLeft(yAvgTempLineScale).ticks(5) }
 
 
@@ -191,7 +191,7 @@ function setWorldTempMap()
     svgAvgTempLine.append("text")
                   .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
                   .attr("transform", "translate("+ marginAvgTempLine.left/3 +","+((heightAvgTempLine + marginAvgTempLine.top)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
-                  .text("World average temperature (ºC)");
+                  .text("ºC");
 
     svgAvgTempLine.append("text")
                   .attr("x", (widthAvgTempLine/2 + marginAvgTempLine.left))
@@ -199,6 +199,14 @@ function setWorldTempMap()
                   .attr("text-anchor", "middle")
                   .style("font-size", "16px")
                   .text("Year");
+
+    svgAvgTempLine.append("text")
+                .attr("class", "title")
+                .attr("x", (widthAvgTempLine/2 + marginAvgTempLine.left))
+                .attr("y", (marginAvgTempLine.top/2) )
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .text("World average temperature");
 
     // add gridlines
     svgAvgTempLine.append("g")     
@@ -370,14 +378,11 @@ function animateWorldTempMap() {
             yearClock.html(beginYearMapTemp + yearIndMapTemp);  // update the clock
             },
           mapTempDuration);
-      
-          d3.select(this).html('stop');   // change the button label to stop
           playingMapTemp = true;          // change the status of the animation
       } 
       // else if is currently playingMapTemp
       else {    
         clearInterval(timer);           // stop the animation by clearing the interval
-        d3.select(this).html('play');   // change the button label to play
         playingMapTemp = false;         // change the status again
 
         d3.select("#worldAverageTemperature")  // stop the line chart

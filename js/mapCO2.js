@@ -291,6 +291,7 @@ function setWorldTempMapCO2()
     let mousemove = function(d){
       tooltipCO2.style("top", (d3.event.pageY-10)+"px")
              .style("left",(d3.event.pageX+10)+"px")
+             .style("color", "gray")
     }
 
     let mouseClick = function(d) {
@@ -377,13 +378,11 @@ function animateWorldTempMapCO2() {
             },
           mapTempDurationCO2);
       
-          d3.select(this).html('stop');   // change the button label to stop
           playingMapTempCO2 = true;          // change the status of the animation
       } 
       // else if is currently playingMapTempCO2
       else {    
         clearInterval(timerCO2);           // stop the animation by clearing the interval
-        d3.select(this).html('play');   // change the button label to play
         playingMapTempCO2 = false;         // change the status again
       }
   });

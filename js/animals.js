@@ -36,7 +36,7 @@ function plotAnimals(){
 
 
   // Load the data
-  d3.csv(".././data/animals.csv", function(error, data) {
+  d3.csv("./data/animals.csv", function(error, data) {
     // data = alldata.filter(function(d) {return d.country == country})
     data.forEach(function(d) {
         d.year = +d.year
@@ -205,13 +205,13 @@ function plotSpecies(Species){
 
 
   svgSpecies.append('image')
-    .attr('xlink:href', "../img/"+Species+".jpg")
+    .attr('xlink:href', "./img/"+Species+".jpg")
     .attr('width', width)
     .attr('height', height)
     .attr('opacity', 0.8)
 
 
-  dataPath = ".././data/" + Species + ".csv"
+  dataPath = "./data/" + Species + ".csv"
 
   // Load the data
   d3.csv(dataPath, function(error, data) {

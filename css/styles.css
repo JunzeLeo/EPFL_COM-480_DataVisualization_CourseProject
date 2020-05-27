@@ -10207,3 +10207,22 @@ header.masthead h1 {
   padding: 5px;
 	max-height: 10rem;
 }
+
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+.areaCR {
+  fill: #f7436d;
+  opacity: 0.5;
+}
+.areaEN {
+  fill: #e08036;
+  opacity: 0.5;
+}
+.areaVU {
+  fill: #f0e246;
+  opacity: 0.5;
+}

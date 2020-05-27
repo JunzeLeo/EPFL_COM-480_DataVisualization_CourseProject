@@ -6128,7 +6128,7 @@ button.bg-success:focus {
 
 .bg-info {
   /* 17a2b8 */
-  background-color: #ff94bb !important;
+  background-color: #f5bcd1 !important;
 }
 
 a.bg-info:hover, a.bg-info:focus,
@@ -10243,7 +10243,25 @@ header.masthead h1 {
     height: 60px;
 }
 
+.imgScalePlay{
+  width: 80%;
+  height: auto;
+}
+.buttonPlay {
+    background-color: white;
+    /* border: none; */
+    /* color: white; */
+    padding: 0px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0px;
+    margin: px 0px;
+    cursor: pointer;
+    width: 60px;
+    height: auto;
+}
 .imgScale{
-  width: 90%;
+  width: 70%;
   height: auto;
 }

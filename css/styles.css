@@ -163,7 +163,7 @@ a {
   color: #fff;
   text-decoration: none;
   background-color: transparent;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 a:hover {
   color: #d6370c;
@@ -10245,29 +10245,4 @@ header.masthead h1 {
 .imgScale{
   width: 90%;
   height: auto;
-}
-
-.imgBg {
-  background-image: url('../img/Mammals.jpg')
-  opacity: 0.5
-}
-.imgBg {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.imgBg::before {
-      content: "";
-      background-image: url('../img/Mammals.jpg');
-      background-size: cover;
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      bottom: 0px;
-      left: 0px;
-      opacity: 0.5;
 }

@@ -6127,7 +6127,8 @@ button.bg-success:focus {
 }
 
 .bg-info {
-  background-color: #17a2b8 !important;
+  /* 17a2b8 */
+  background-color: #ff94bb !important;
 }
 
 a.bg-info:hover, a.bg-info:focus,

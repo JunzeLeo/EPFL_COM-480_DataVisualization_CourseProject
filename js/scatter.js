@@ -52,9 +52,9 @@ var rScale = 0.2;
 var frameRate = 500;
 var minYear = 1990;
 var maxYear = 2013;
-var colorTemp = "#ff6b9f"
-var colorForest = "#65db7f"
-var colorUrban = "#7a9bf5"
+var colorTemp = "#8c4926"
+var colorForest = "#2a7837"
+var colorUrban = "#1c2787"
 // Highlight
 var highlight = function(d){
   looping = false;
@@ -84,7 +84,7 @@ var doNotHighlight = function(){
       yinner = d3.scaleLinear()
                .domain([0, 21])
                .range([ height, 0]);
-               
+
   d3.selectAll(".dot")
     .transition()
     .duration(200)
@@ -100,7 +100,7 @@ var doNotHighlight = function(){
 
 var looping = true
 function loopData (dataPath){
-  
+
   // console.log(svgScatter.attr("transform"))
 
   var currentYear = minYear;
@@ -215,11 +215,11 @@ function plotLineForScatter(country){
   // console.log(width, height)
 
   svgScatterLine.append("rect").attr("x",(width*0.6)).attr("y",(height*0.00)).attr("width", 6).attr("height", 6).style("fill", colorForest)
-  svgScatterLine.append("rect").attr("x",(width*0.6)).attr("y",(height*0.04)).attr("width", 6).attr("height", 6).style("fill", colorTemp)
-  svgScatterLine.append("rect").attr("x",(width*0.6)).attr("y",(height*0.08)).attr("width", 6).attr("height", 6).style("fill", colorUrban)
+  svgScatterLine.append("rect").attr("x",(width*0.6)).attr("y",(height*0.05)).attr("width", 6).attr("height", 6).style("fill", colorTemp)
+  svgScatterLine.append("rect").attr("x",(width*0.6)).attr("y",(height*0.1)).attr("width", 6).attr("height", 6).style("fill", colorUrban)
   svgScatterLine.append("text").attr("x", (width*0.66)).attr("y", (height*0.01)).text("Forest coverage").style("font-size", "12px").attr("alignment-baseline","middle")
-  svgScatterLine.append("text").attr("x", (width*0.66)).attr("y", (height*0.05)).text("Temperature (normalized)").style("font-size", "12px").attr("alignment-baseline","middle")
-  svgScatterLine.append("text").attr("x", (width*0.66)).attr("y", (height*0.09)).text("Urbanization").style("font-size", "12px").attr("alignment-baseline","middle")
+  svgScatterLine.append("text").attr("x", (width*0.66)).attr("y", (height*0.06)).text("Temperature (normalized)").style("font-size", "12px").attr("alignment-baseline","middle")
+  svgScatterLine.append("text").attr("x", (width*0.66)).attr("y", (height*0.11)).text("Urbanization").style("font-size", "12px").attr("alignment-baseline","middle")
 
 
   // Load the data
@@ -234,7 +234,7 @@ function plotLineForScatter(country){
 
     // Scale the range of the data
     x.domain(d3.extent(data, function(d) { return d.year;}));
-    y0.domain([0,100]);
+    y0.domain([0,105]);
 
     var focus = svgScatterLine.append("g");
     var lineUrban = focus.append("path")

@@ -133,25 +133,28 @@ function drawCountryAxis(countryName, countFullName)
 
   svgAvgTempLineCO2.append("g")
                 .attr("class", "y axis2")
-                .style("stroke", "green")
+                .style("stroke", "#17e890")
                 .attr("transform", "translate(" + (widthAvgTempLineCO2+marginAvgTempLineCO2.left) + " ,0)")
                 .call(yAxisAvgTempLine2CO2);
 
   // add labels
   svgAvgTempLineCO2.append("text")
                 .style("stroke", "white")
+                .style("fill", "white")
                 .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-                .attr("transform", "translate("+ 12 +","+((heightAvgTempLineCO2 + marginAvgTempLineCO2.top)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
-                .text("CO2 emission (ton per capita)");
+                .attr("transform", "translate("+ 12 +","+((heightAvgTempLineCO2 + marginAvgTempLineCO2.top + marginAvgTempLineCO2.bottom)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+                .text("CO2 emission (ton/capita)");
 
   svgAvgTempLineCO2.append("text")
                   .style("stroke", "white")
+                  .style("fill", "white")
                   .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-                  .attr("transform", "translate("+ (marginAvgTempLineCO2.left+widthAvgTempLineCO2+marginAvgTempLineCO2.right) +","+((heightAvgTempLineCO2 + marginAvgTempLineCO2.top)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+                  .attr("transform", "translate("+ (marginAvgTempLineCO2.left+widthAvgTempLineCO2+marginAvgTempLineCO2.right) +","+((heightAvgTempLineCO2 + marginAvgTempLineCO2.top + marginAvgTempLineCO2.bottom)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
                   .text("Forest coverage(%)");
 
   svgAvgTempLineCO2.append("text")
                 .style("stroke", "white")
+                .style("fill", "white")
                 .attr("x", (widthAvgTempLineCO2/2 + marginAvgTempLineCO2.left))
                 .attr("y", (heightAvgTempLineCO2 + marginAvgTempLineCO2.top + marginAvgTempLineCO2.bottom) )
                 .attr("text-anchor", "middle")
@@ -161,6 +164,7 @@ function drawCountryAxis(countryName, countFullName)
   svgAvgTempLineCO2.append("text")
                 .attr("class", "title")
                 .style("stroke", "white")
+                .style("fill", "white")
                 .attr("x", (widthAvgTempLineCO2/2 + marginAvgTempLineCO2.left))
                 .attr("y", (marginAvgTempLineCO2.top/2) )
                 .attr("text-anchor", "middle")
@@ -217,7 +221,7 @@ function drawCoutryData(countryName, countryFullName){
                   .datum(arrayOfMap2)
                   .attr("class", "line")
                   .attr("fill", "none")
-                  .style("stroke", "green")
+                  .style("stroke", "#17e890")
                   .attr("stroke-linejoin", "round")
                   .attr("stroke-linecap", "round")
                   .attr("stroke-width", 1.5)

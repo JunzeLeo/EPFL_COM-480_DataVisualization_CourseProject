@@ -190,7 +190,7 @@ function setWorldTempMap()
     // add labels
     svgAvgTempLine.append("text")
                   .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-                  .attr("transform", "translate("+ marginAvgTempLine.left/3 +","+((heightAvgTempLine + marginAvgTempLine.top)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+                  .attr("transform", "translate("+ marginAvgTempLine.left/3 +","+((heightAvgTempLine + marginAvgTempLine.top + marginAvgTempLine.bottom)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
                   .text("ºC");
 
     svgAvgTempLine.append("text")
@@ -211,7 +211,7 @@ function setWorldTempMap()
     // add gridlines
     svgAvgTempLine.append("g")     
                   .attr("class", "grid")
-                  .attr("transform", "translate(" + 10 + "," + (heightAvgTempLine + marginAvgTempLine.top) + ")")
+                  .attr("transform", "translate(" + 0 + "," + (heightAvgTempLine + marginAvgTempLine.top) + ")")
                   .call(draw_x_gridlines()
                   .tickSize(-heightAvgTempLine)
                   .tickFormat("")

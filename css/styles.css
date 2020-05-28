@@ -6128,7 +6128,7 @@ button.bg-success:focus {
 
 .bg-info {
   /* 17a2b8 */
-  background-color: #f5bcd1 !important;
+  background-color: #FAEBD7 !important;
 }
 
 a.bg-info:hover, a.bg-info:focus,
@@ -10212,7 +10212,7 @@ header.masthead h1 {
 
 .grid line {
   stroke: lightgrey;
-  stroke-opacity: 0.7;
+  stroke-opacity: 0.5;
   shape-rendering: crispEdges;
 }
 .areaCR {

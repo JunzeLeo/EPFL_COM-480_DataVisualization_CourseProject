@@ -214,7 +214,7 @@ function setWorldTempMap()
     // add gridlines
     svgAvgTempLine.append("g")     
                   .attr("class", "grid")
-                  .attr("transform", "translate(" + 0 + "," + (heightAvgTempLine + marginAvgTempLine.top) + ")")
+                  .attr("transform", "translate(" + 10 + "," + (heightAvgTempLine + marginAvgTempLine.top) + ")")
                   .call(draw_x_gridlines()
                   .tickSize(-heightAvgTempLine)
                   .tickFormat("")

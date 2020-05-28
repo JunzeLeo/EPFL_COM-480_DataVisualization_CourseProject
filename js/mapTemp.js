@@ -323,12 +323,30 @@ function sequenceAvgTempLine(){
   }
   resumeAvgTempLine = false
 
+
+  // Set the gradient
+  svgAvgTempLine.append("linearGradient")
+              .attr("id", "line-gradient")
+              .attr("gradientUnits", "userSpaceOnUse")
+              .attr("x1", 0)
+              .attr("y1", yAvgTempLineScale(8))
+              .attr("x2", 0)
+              .attr("y2", yAvgTempLineScale(10))
+              .selectAll("stop")
+              .data([
+                {offset: "0%", color: "#76c9d4"},
+                {offset: "100%", color: "red"}
+              ])
+              .enter().append("stop")
+                .attr("offset", function(d) { return d.offset; })
+                .attr("stop-color", function(d) { return d.color; });
+
   var worldAvgTempline = svgAvgTempLine.append("g")
                   .append("path")
                   .datum(arrayOfMap)
                   .attr("class", "line")
                   .attr("fill", "none")
-                  .attr("stroke", "steelblue")
+                  .attr("stroke", "url(#line-gradient)")
                   .attr("stroke-linejoin", "round")
                   .attr("stroke-linecap", "round")
                   .attr("stroke-width", 1.5)

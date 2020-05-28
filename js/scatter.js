@@ -228,7 +228,7 @@ function plotLineForScatter(country){
   svgScatterLine.append("rect").attr("x",(width*0.6)).attr("y",(height*0.05)).attr("width", 6).attr("height", 6).style("fill", colorTemp)
   svgScatterLine.append("rect").attr("x",(width*0.6)).attr("y",(height*0.1)).attr("width", 6).attr("height", 6).style("fill", colorUrban)
   svgScatterLine.append("text").attr("x", (width*0.66)).attr("y", (height*0.01)).text("Forest coverage").style("font-size", "12px").attr("alignment-baseline","middle")
-  svgScatterLine.append("text").attr("x", (width*0.66)).attr("y", (height*0.06)).text("Temperature (normalized)").style("font-size", "12px").attr("alignment-baseline","middle")
+  svgScatterLine.append("text").attr("x", (width*0.66)).attr("y", (height*0.06)).text("Temperature").style("font-size", "12px").attr("alignment-baseline","middle")
   svgScatterLine.append("text").attr("x", (width*0.66)).attr("y", (height*0.11)).text("Urbanization").style("font-size", "12px").attr("alignment-baseline","middle")
 
 

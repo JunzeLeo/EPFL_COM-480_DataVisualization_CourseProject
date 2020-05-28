@@ -1,7 +1,7 @@
 /* ******************** world temperature map settings ************************* */
 // The worldMap_temperature
 var marginMapTempCO2 = {top: 20 , right: 20, bottom: 20, left: 20};   // top left is the origin of a svg, x leftward, y downward
-var beginYearMapTempCO2 = 1990, yearIndMapTempCO2 = 0, playingMapTempCO2 = false, mapTempDurationCO2 = 200, timerCO2;  // create timerCO2 object;
+var beginYearMapTempCO2 = 1990, yearIndMapTempCO2 = 0, playingMapTempCO2 = true, mapTempDurationCO2 = 200, timerCO2;  // create timerCO2 object;
 var svgMapTempCO2 = d3.select("#mapCO2"),
     widthMapTempCO2 = +svgMapTempCO2.attr("width"),
     heightMapTempCO2 = +svgMapTempCO2.attr("height");

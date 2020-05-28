@@ -30,7 +30,7 @@ var yearClockCO2 = d3.select('#clockCO2')
       .style("top", (marginMapTempCO2.top) + "px")
       .style("left",(marginMapTempCO2.left) + "px")
 
-// Convert yearly temperature data to array 
+// Convert yearly temperature data to array
 function dataToArray(d){
   carbon = []
   for (var i in d){
@@ -61,7 +61,7 @@ var svgAvgTempLineCO2    = d3.select("#mapCO2Line"),
     widthAvgTempLineCO2  = +svgAvgTempLineCO2.attr("width") - marginAvgTempLineCO2.left - marginAvgTempLineCO2.right,
     heightAvgTempLineCO2 = +svgAvgTempLineCO2.attr("height") - marginAvgTempLineCO2.top - marginAvgTempLineCO2.bottom;
 svgAvgTempLineCO2.append("g")
-              .attr("transform", 
+              .attr("transform",
                     "translate(" + marginAvgTempLineCO2.left + "," + marginAvgTempLineCO2.top + ")");
 
 // Define the scales of axises
@@ -72,7 +72,7 @@ var yAvgTempLineScale2CO2= d3.scaleLinear().range([heightAvgTempLineCO2+marginAv
 // Plot the axises
 var xAxisAvgTempLineCO2 = d3.axisBottom(xAvgTempLineScaleCO2).tickFormat(function(d) { return d;});
 var yAxisAvgTempLineCO2 = d3.axisLeft(yAvgTempLineScaleCO2).ticks(5);
-var yAxisAvgTempLine2CO2= d3.axisRight(yAvgTempLineScale2CO2).ticks(5); 
+var yAxisAvgTempLine2CO2= d3.axisRight(yAvgTempLineScale2CO2).ticks(5);
 
 // Data (in map => key: value) and duration(to be updated)
 var dataCountryCarbon = d3.map(), dataCountryForest = d3.map();
@@ -119,7 +119,7 @@ function drawCountryAxis(countryName, countFullName)
   yAvgTempLineScale2CO2.domain(d3.extent(yAxisForest));
 
   // Add the axises
-  svgAvgTempLineCO2.append("g")          
+  svgAvgTempLineCO2.append("g")
                 .attr("class", "x axis")
                 .style("stroke", "white")
                 .attr("transform", "translate(0," + (heightAvgTempLineCO2 + marginAvgTempLineCO2.top) + ")")
@@ -129,12 +129,12 @@ function drawCountryAxis(countryName, countFullName)
                 .attr("class", "y axis")
                 .style("stroke", "red")
                 .attr("transform", "translate(" + marginAvgTempLineCO2.left + ",0)")
-                .call(yAxisAvgTempLineCO2); 
+                .call(yAxisAvgTempLineCO2);
 
-  svgAvgTempLineCO2.append("g")       
-                .attr("class", "y axis2")  
+  svgAvgTempLineCO2.append("g")
+                .attr("class", "y axis2")
                 .style("stroke", "green")
-                .attr("transform", "translate(" + (widthAvgTempLineCO2+marginAvgTempLineCO2.left) + " ,0)") 
+                .attr("transform", "translate(" + (widthAvgTempLineCO2+marginAvgTempLineCO2.left) + " ,0)")
                 .call(yAxisAvgTempLine2CO2);
 
   // add labels
@@ -174,7 +174,7 @@ function drawCountryAxis(countryName, countFullName)
                 .text(countFullName);
 
   // add gridlines
-  svgAvgTempLineCO2.append("g")     
+  svgAvgTempLineCO2.append("g")
                 .attr("class", "grid")
                 .attr("transform", "translate(0," + (heightAvgTempLineCO2 + marginAvgTempLineCO2.top) + ")")
                 .call(draw_x_gridlines()
@@ -192,7 +192,7 @@ function drawCountryAxis(countryName, countFullName)
 }
 
 function drawCoutryData(countryName, countryFullName){
-  
+
   drawCountryAxis(countryName, countryFullName)
 
   svgAvgTempLineCO2.selectAll("path.line").remove()
@@ -321,7 +321,7 @@ function setWorldTempMapCO2()
           }
           else{
             d.totalCO2 = thisTempCO2[yearIndMapTempCO2];
-          }  
+          }
           return colorScaleMapTempCO2(d.totalCO2);
         })
         .style("stroke", "transparent")
@@ -337,7 +337,7 @@ function setWorldTempMapCO2()
 
 
 function sequenceWorldTempMapCO2() {
-  
+
     d3.selectAll('.CountryCO2').transition()    //select all the countries and prepare for a transition to new values
       .duration(100)                         // give it a smooth time period for the transition
       .attr('fill', function(d) {
@@ -347,7 +347,7 @@ function sequenceWorldTempMapCO2() {
           }
           else{
             d.totalCO2 = thisTempCO2[yearIndMapTempCO2];
-          }  
+          }
           // console.log(d.properties.name, d.totalCO2)
 
         return colorScaleMapTempCO2(d.totalCO2);  // the end color value
@@ -359,29 +359,29 @@ function animateWorldTempMapCO2() {
 
   var timerCO2;  // create timerCO2 object
 
-  d3.select('#playCO2')  
+  d3.select('#playCO2')
     .on('click', function() {
       // if the map will play, set a JS interval to repeate the map
-      if( playingMapTempCO2 == false ) {  
-          timerCO2 = setInterval( function() {   
-            if( yearIndMapTempCO2 < dataMapTempCO2.get("CHN").length-1 ) {  
-                yearIndMapTempCO2 +=1;              
-            } 
+      if( playingMapTempCO2 == false ) {
+          timerCO2 = setInterval( function() {
+            if( yearIndMapTempCO2 < dataMapTempCO2.get("CHN").length-1 ) {
+                yearIndMapTempCO2 +=1;
+            }
             else {
                 yearIndMapTempCO2 = 0;              // or reset it to zero
             }
 
-            sequenceWorldTempMapCO2();                // update the representation of the map 
+            sequenceWorldTempMapCO2();                // update the representation of the map
             // sequenceAvgTempLine();                 // update the representation of the line chart
 
             yearClockCO2.html(beginYearMapTempCO2 + yearIndMapTempCO2);  // update the clock
             },
           mapTempDurationCO2);
-      
+
           playingMapTempCO2 = true;          // change the status of the animation
-      } 
+      }
       // else if is currently playingMapTempCO2
-      else {    
+      else {
         clearInterval(timerCO2);           // stop the animation by clearing the interval
         playingMapTempCO2 = false;         // change the status again
       }

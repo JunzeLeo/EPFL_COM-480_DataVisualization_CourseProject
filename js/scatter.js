@@ -11,6 +11,11 @@ var svgScatter = d3.select("#urbForestTempScatter")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
+var clock_urban = d3.select('#clock_urban')
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("top", (margin.top) + "px")
+      .style("left",(margin.left) + "px")
 
 // Add X axis
 var x = d3.scaleLinear()
@@ -50,7 +55,7 @@ svgScatter.append("text")
 
 var greyR = 3;
 var rScale = 0.2;
-var frameRate = 500;
+var frameRate = 600;
 var minYear = 1990;
 var maxYear = 2013;
 var colorTemp = "#8c4926"
@@ -116,6 +121,7 @@ function loopData (dataPath){
   // Read the data
   d3.csv(dataPath, function(data) {
     alldata = data
+    clock_urban.html(currentYear);  // update the clock
     data1 = data.filter(function(d) {return d.year == currentYear})
     // Add dots
     svgScatter.append('g')
@@ -153,6 +159,7 @@ function loopData (dataPath){
                    .domain([0, 21])
                    .range([ height, 0]);
 
+    setTimeout(clock_urban.html(currentYear), frameRate);
     data1 = alldata.filter(function(d) {return d.year == currentYear})
     svgScatter.selectAll("circle")
         .data(data1)

@@ -184,6 +184,7 @@ function plotLineForScatter(country){
   if(svgScatterLine != null){
     svgScatterLine.selectAll("path.line").remove();
     svgScatterLine.selectAll("text.title").remove();
+    svgScatterLine.selectAll("g.grid").remove();
   }
   else
   {
@@ -317,11 +318,12 @@ function plotLineForScatter(country){
     // add gridlines
     svgScatterLine.append("g")
                   .attr("class", "grid")
-                  .style("fill", "gray")
+                  .style("fill", "none")
                   .style("opacity", 0.3)
                   .attr("transform", "translate(" + 0 + "," + (height) + ")")
                   .call(draw_x_gridlines()
-                  .tickSize(-height)
+                  .tickSizeInner(-height)
+                  .tickSizeInner(0)
                   .tickFormat("")
     )
 

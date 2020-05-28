@@ -1,14 +1,14 @@
 /* ******************** world temperature map settings ************************* */
 // The worldMap_temperature
 var marginMapTemp = {top: 20 , right: 20, bottom: 20, left: 20};   // top left is the origin of a svg, x leftward, y downward
-var beginYearMapTemp = 1898, yearIndMapTemp = 0, playingMapTemp = false, mapTempDuration = 200;
+var beginYearMapTemp = 1898, yearIndMapTemp = 0, playingMapTemp = true, mapTempDuration = 200, timer;  // create timer object;
 var svgMapTemp = d3.select("#mapTemp"),
     widthMapTemp = +svgMapTemp.attr("width"),
     heightMapTemp = +svgMapTemp.attr("height");
 
 // Map and projection
-var projection = d3.geoMercator()
-  .scale(60)
+var projection = d3.geoEquirectangular()
+  .scale(75)
   .center([0,20])
   .translate([widthMapTemp / 2, heightMapTemp / 2]);
 
@@ -265,28 +265,30 @@ function setWorldTempMap()
       .enter()
       .append("path")
         // draw each country
-        .attr("d", d3.geoPath()
-          .projection(projection)
-        )
-        // set the color of each country
-        .attr("fill", function (d) {
-          thisTemp = dataMapTemp.get(d.properties.name);
-          if (typeof(thisTemp) === "undefined"){
-            d.total = 0;
-          }
-          else{
-            d.total = thisTemp[yearIndMapTemp];
-          }  
-          return colorScaleMapTemp(d.total);
-        })
-        .style("stroke", "transparent")
-        .attr("class", function(d){ return "Country" } )
-        .attr("code", function(d){ return d.id } )
-        .style("opacity", .8)
-        .on("mouseover", mouseOverMap )
-        .on("mouseleave", mouseLeaveMap )
-        .on("mousemove", mouseMoveMap )
-        .on("click", mouseClickMap )
+      .attr("d", d3.geoPath()
+        .projection(projection)
+      )
+      // set the color of each country
+      .attr("fill", function (d) {
+        thisTemp = dataMapTemp.get(d.properties.name);
+        if (typeof(thisTemp) === "undefined"){
+          d.total = 0;
+        }
+        else{
+          d.total = thisTemp[yearIndMapTemp];
+        }  
+        return colorScaleMapTemp(d.total);
+      })
+      .style("stroke", "transparent")
+      .attr("class", function(d){ return "Country" } )
+      .attr("code", function(d){ return d.id } )
+      .style("opacity", .8)
+      .on("mouseover", mouseOverMap )
+      .on("mouseleave", mouseLeaveMap )
+      .on("mousemove", mouseMoveMap )
+      .on("click", mouseClickMap )
+
+    playMapandLine()
   }
 }
 
@@ -352,45 +354,58 @@ function sequenceWorldTempMap() {
 }
 
 
+function playMapandLine(){
+
+  timer = setInterval( function() {   
+      if( yearIndMapTemp < dataMapTemp.get("China").length-1 ) {  
+          yearIndMapTemp +=1;              
+      } 
+      else {
+          yearIndMapTemp = 0;              // reset year conuter
+          svgAvgTempLine.selectAll("path.line").remove();  // reset svg figure
+          svgAvgTempLine.selectAll("circle.focus").style("opacity", 0)
+          svgAvgTempLine.selectAll("text.focusText").style("opacity", 0)
+          dataAvgTempDrawed.length = 0     // reset data for focus
+      }
+
+      sequenceWorldTempMap();                // update the representation of the map 
+      sequenceAvgTempLine();                 // update the representation of the line chart
+
+      yearClock.html(beginYearMapTemp + yearIndMapTemp);  // update the clock
+    },
+    mapTempDuration
+  );
+
+  playingMapTemp = true;          // change the status of the animation
+}
+
+
+function stopPlaying(){
+  
+  clearInterval(timer);           // stop the animation by clearing the interval
+  playingMapTemp = false;         // change the status again
+
+  d3.select("#worldAverageTemperature")  // stop the line chart
+    .sel
+    ectAll("*")
+    .transition()
+    .duration(0)
+    .ease(d3.easeLinear);
+  resumeAvgTempLine = true;
+
+}
+
+
 function animateWorldTempMap() {
-
-  var timer;  // create timer object
-
   d3.select('#playTemp')  
     .on('click', function() {
       // if the map will play, set a JS interval to repeate the map
       if( playingMapTemp == false ) {  
-          timer = setInterval( function() {   
-            if( yearIndMapTemp < dataMapTemp.get("China").length-1 ) {  
-                yearIndMapTemp +=1;              
-            } 
-            else {
-                yearIndMapTemp = 0;              // reset year conuter
-                svgAvgTempLine.selectAll("path.line").remove();  // reset svg figure
-                svgAvgTempLine.selectAll("circle.focus").style("opacity", 0)
-                svgAvgTempLine.selectAll("text.focusText").style("opacity", 0)
-                dataAvgTempDrawed.length = 0     // reset data for focus
-            }
-
-            sequenceWorldTempMap();                // update the representation of the map 
-            sequenceAvgTempLine();                 // update the representation of the line chart
-
-            yearClock.html(beginYearMapTemp + yearIndMapTemp);  // update the clock
-            },
-          mapTempDuration);
-          playingMapTemp = true;          // change the status of the animation
+        playMapandLine()
       } 
       // else if is currently playingMapTemp
       else {    
-        clearInterval(timer);           // stop the animation by clearing the interval
-        playingMapTemp = false;         // change the status again
-
-        d3.select("#worldAverageTemperature")  // stop the line chart
-          .selectAll("*")
-          .transition()
-          .duration(0)
-          .ease(d3.easeLinear);
-        resumeAvgTempLine = true;
+        stopPlaying()
       }
   });
 }

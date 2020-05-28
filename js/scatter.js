@@ -30,7 +30,7 @@ svgScatter.append("g")
 // Add Y axis
 var y = d3.scaleLinear()
   // .domain([0, 1]) // 0-21
-  .domain([0, 21])
+  .domain([-5, 60])
   .range([ height, 0]);
 svgScatter.append("g")
   .call(d3.axisLeft(y));
@@ -172,7 +172,7 @@ function loopData (dataPath){
   var interval = setInterval(updateGraph, frameRate);
 }
 
-loopData("./data/ScatterData.csv")
+loopData("./data/ScatterData_origin.csv")
 
 
 

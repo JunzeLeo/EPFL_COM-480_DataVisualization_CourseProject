@@ -36,7 +36,7 @@ Since the dawn of the Industrial Revolution in the 19th century, the average tem
 Is global warming real? What are its causes and consequences? Especially, **what are the impacts on lives?**
 
 #### Motivation
- 
+
 While the world is overwhelmed with the COVID-19 pandemic, the earth is still warming and many lives are suffering from the heating planet. A recent news reports that Antarctica has hit the highest temperature on record of 18.3C in February 2020. The climate zone for lives now is shrinking.
 
 To keep within the climate zone for survival, most species on this planet, including plants, will have to migrate[](https://wwf.panda.org/our_work/wildlife/problems/climate_change/). However, many species will not be able to redistribute themselves fast enough, i.e. these species may well become extinct. 
@@ -88,4 +88,10 @@ We have found in [this website](https://ourworldindata.org/urbanization) some be
 ## Milestone 3 (Thursday 28th May, 5pm)
 
 **80% of the final grade**
+
+We build a [website]( https://com-480-data-visualization.github.io/com-480-project-zalda/ ) for our project. We encourage the user to interact with mouse by clicking or placing the mouse at a certain position.
+
+To have a better idea of the navigation of our website, you can watch a demo [video](screencast.mp4).
+
+We have also written a [process book](processBook.pdf) to describe the path we took to obtain the final result.
 

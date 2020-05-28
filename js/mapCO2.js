@@ -1,14 +1,14 @@
 /* ******************** world temperature map settings ************************* */
 // The worldMap_temperature
 var marginMapTempCO2 = {top: 20 , right: 20, bottom: 20, left: 20};   // top left is the origin of a svg, x leftward, y downward
-var beginYearMapTempCO2 = 1990, yearIndMapTempCO2 = 0, playingMapTempCO2 = false, mapTempDurationCO2 = 200;
+var beginYearMapTempCO2 = 1990, yearIndMapTempCO2 = 0, playingMapTempCO2 = false, mapTempDurationCO2 = 200, timerCO2;  // create timerCO2 object;
 var svgMapTempCO2 = d3.select("#mapCO2"),
     widthMapTempCO2 = +svgMapTempCO2.attr("width"),
     heightMapTempCO2 = +svgMapTempCO2.attr("height");
 
 // Map and projection
-var projectionCO2 = d3.geoMercator()
-  .scale(60)
+var projectionCO2 = d3.geoEquirectangular()
+  .scale(75)
   .center([0,20])
   .translate([widthMapTempCO2 / 2, heightMapTempCO2 / 2]);
 
@@ -309,29 +309,31 @@ function setWorldTempMapCO2()
       .data(topo.features)
       .enter()
       .append("path")
-        // draw each country
-        .attr("d", d3.geoPath()
-          .projection(projectionCO2)
-        )
-        // set the color of each country
-        .attr("fill", function (d) {
-          thisTempCO2 = dataMapTempCO2.get(d.id);
-          if (typeof(thisTempCO2) === "undefined"){
-            d.totalCO2 = 0;
-          }
-          else{
-            d.totalCO2 = thisTempCO2[yearIndMapTempCO2];
-          }
-          return colorScaleMapTempCO2(d.totalCO2);
-        })
-        .style("stroke", "transparent")
-        .attr("class", function(d){ return "CountryCO2" } )
-        .attr("code", function(d){ return d.id } )
-        .style("opacity", .8)
-        .on("mouseover", mouseOver )
-        .on("mouseleave", mouseLeave )
-        .on("mousemove", mousemove )
-        .on("click", mouseClick )
+      // draw each country
+      .attr("d", d3.geoPath()
+        .projection(projectionCO2)
+      )
+      // set the color of each country
+      .attr("fill", function (d) {
+        thisTempCO2 = dataMapTempCO2.get(d.id);
+        if (typeof(thisTempCO2) === "undefined"){
+          d.totalCO2 = 0;
+        }
+        else{
+          d.totalCO2 = thisTempCO2[yearIndMapTempCO2];
+        }
+        return colorScaleMapTempCO2(d.totalCO2);
+      })
+      .style("stroke", "transparent")
+      .attr("class", function(d){ return "CountryCO2" } )
+      .attr("code", function(d){ return d.id } )
+      .style("opacity", .8)
+      .on("mouseover", mouseOver )
+      .on("mouseleave", mouseLeave )
+      .on("mousemove", mousemove )
+      .on("click", mouseClick )
+
+      playingMapAnimation()
   }
 }
 
@@ -355,35 +357,45 @@ function sequenceWorldTempMapCO2() {
 }
 
 
-function animateWorldTempMapCO2() {
+function playingMapAnimation(){
 
-  var timerCO2;  // create timerCO2 object
+  timerCO2 = setInterval( function() {
+    if( yearIndMapTempCO2 < dataMapTempCO2.get("CHN").length-1 ) {
+        yearIndMapTempCO2 +=1;
+    }
+    else {
+        yearIndMapTempCO2 = 0;        // or reset it to zero
+    }
+
+    sequenceWorldTempMapCO2();        // update the representation of the map
+    // sequenceAvgTempLine();         // update the representation of the line chart
+
+    yearClockCO2.html(beginYearMapTempCO2 + yearIndMapTempCO2);  // update the clock
+    },
+  mapTempDurationCO2);
+
+  playingMapTempCO2 = true;          // change the status of the animation
+}
+
+
+function stopMapAnimation(){
+
+  clearInterval(timerCO2);           // stop the animation by clearing the interval
+  playingMapTempCO2 = false;         // change the status again
+}
+
+
+function animateWorldTempMapCO2() {
 
   d3.select('#playCO2')
     .on('click', function() {
       // if the map will play, set a JS interval to repeate the map
       if( playingMapTempCO2 == false ) {
-          timerCO2 = setInterval( function() {
-            if( yearIndMapTempCO2 < dataMapTempCO2.get("CHN").length-1 ) {
-                yearIndMapTempCO2 +=1;
-            }
-            else {
-                yearIndMapTempCO2 = 0;              // or reset it to zero
-            }
-
-            sequenceWorldTempMapCO2();                // update the representation of the map
-            // sequenceAvgTempLine();                 // update the representation of the line chart
-
-            yearClockCO2.html(beginYearMapTempCO2 + yearIndMapTempCO2);  // update the clock
-            },
-          mapTempDurationCO2);
-
-          playingMapTempCO2 = true;          // change the status of the animation
+        playingMapAnimation()
       }
       // else if is currently playingMapTempCO2
       else {
-        clearInterval(timerCO2);           // stop the animation by clearing the interval
-        playingMapTempCO2 = false;         // change the status again
+        stopMapAnimation()
       }
   });
 }

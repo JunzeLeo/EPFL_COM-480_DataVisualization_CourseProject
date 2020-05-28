@@ -23,11 +23,11 @@ var colorCR = "#f7436d"
 var colorEN = "#e08036"
 var colorVU = "#f0e246"
 svgAnimals.append("rect").attr("x",(width*0.1)).attr("y",(height*0.05)).attr("width", 8).attr("height", 8).style("fill", colorCR)
-svgAnimals.append("rect").attr("x",(width*0.1)).attr("y",(height*0.09)).attr("width", 8).attr("height", 8).style("fill", colorEN)
-svgAnimals.append("rect").attr("x",(width*0.1)).attr("y",(height*0.13)).attr("width", 8).attr("height", 8).style("fill", colorVU)
+svgAnimals.append("rect").attr("x",(width*0.1)).attr("y",(height*0.10)).attr("width", 8).attr("height", 8).style("fill", colorEN)
+svgAnimals.append("rect").attr("x",(width*0.1)).attr("y",(height*0.15)).attr("width", 8).attr("height", 8).style("fill", colorVU)
 svgAnimals.append("text").attr("x", (width*0.16)).attr("y", (height*0.06)).text("Critically endangered").style("font-size", "12px").attr("alignment-baseline","middle")
-svgAnimals.append("text").attr("x", (width*0.16)).attr("y", (height*0.1)).text("Endangered").style("font-size", "12px").attr("alignment-baseline","middle")
-svgAnimals.append("text").attr("x", (width*0.16)).attr("y", (height*0.14)).text("Vunerable").style("font-size", "12px").attr("alignment-baseline","middle")
+svgAnimals.append("text").attr("x", (width*0.16)).attr("y", (height*0.11)).text("Endangered").style("font-size", "12px").attr("alignment-baseline","middle")
+svgAnimals.append("text").attr("x", (width*0.16)).attr("y", (height*0.16)).text("Vulnerable").style("font-size", "12px").attr("alignment-baseline","middle")
 
 
 function plotAnimals(){

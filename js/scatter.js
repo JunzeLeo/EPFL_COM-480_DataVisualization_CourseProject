@@ -311,7 +311,7 @@ function plotLineForScatter(country){
     svgScatterLine.append("g")
                   .attr("class", "grid")
                   .style("fill", "gray")
-                  .style("opacity", 0.4)
+                  .style("opacity", 0.3)
                   .attr("transform", "translate(" + 0 + "," + (height) + ")")
                   .call(draw_x_gridlines()
                   .tickSize(-height)

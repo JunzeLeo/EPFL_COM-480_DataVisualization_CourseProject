@@ -30,7 +30,7 @@ svgScatter.append("g")
 // Add Y axis
 var y = d3.scaleLinear()
   // .domain([0, 1]) // 0-21
-  .domain([-5, 60])
+  .domain([-10, 31])
   .range([ height, 0]);
 svgScatter.append("g")
   .call(d3.axisLeft(y));
@@ -88,7 +88,7 @@ var doNotHighlight = function(){
                .range([ 0, width ]),
 
       yinner = d3.scaleLinear()
-               .domain([0, 21])
+               .domain([-10, 31])
                .range([ height, 0]);
 
   d3.selectAll(".dot")
@@ -156,7 +156,7 @@ function loopData (dataPath){
                    .range([ 0, width ]),
 
         yinner = d3.scaleLinear()
-                   .domain([0, 21])
+                   .domain([-10, 31])
                    .range([ height, 0]);
 
     setTimeout(clock_urban.html(currentYear), frameRate);

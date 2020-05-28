@@ -10244,11 +10244,12 @@ header.masthead h1 {
 }
 
 .imgScalePlay{
-  width: 80%;
+  width: 60%;
   height: auto;
 }
 .buttonPlay {
     background-color: white;
+    border-radius: 25%;
     /* border: none; */
     /* color: white; */
     padding: 0px 0px;

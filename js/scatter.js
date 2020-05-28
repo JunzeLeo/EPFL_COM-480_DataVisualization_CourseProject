@@ -308,10 +308,10 @@ function plotLineForScatter(country){
         .call(yAxisLeft);
 
     // add gridlines
-    svgScatterLine.append("g")     
+    svgScatterLine.append("g")
                   .attr("class", "grid")
                   .style("fill", "gray")
-                  .style("opacity", 0.5)
+                  .style("opacity", 0.4)
                   .attr("transform", "translate(" + 0 + "," + (height) + ")")
                   .call(draw_x_gridlines()
                   .tickSize(-height)

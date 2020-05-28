@@ -89,26 +89,34 @@
         </section>
         <!-- WORLD AVG TMEP-->
         <section class="page-section" id="worldAverageTemperature">
-            <div class="container col-lg-9">
-                <h2 class="text-center mt-0">World Average Temperature</h2>
-
+            <div class="container text-center col-lg-9">
+                <h2 class="text-center mt-0 mb-2">World Average Temperature</h2>
+                <p class="mb-4 mt-2 text-center" style="font-size: 0.8rem">Click on the play button to show the evaluation of the temperature</p>
+                <button id="playTemp" class="buttonPlay my-1 mt-1"><img src="img/playPause.png" class="imgScale" ></button>
                 <div class = "row">
                    <div class="col-lg-6 col-sm-6">
-                     <svg id="mapTemp" width="460" height="400"></svg>
-                     <button id="playTemp" class="buttonPlay my-1 mt-1"><img src="img/playPause.png" class="imgScale" ></button>
+                     <svg id="mapTemp" width="460" height="320"></svg>
+                     <!-- <button id="playTemp" class="buttonPlay my-1 mt-1"><img src="img/playPause.png" class="imgScale" ></button> -->
                      <span id="clock">year</span>
                    </div>
 
                    <div class="col-lg-6 col-sm-6">
-                     <svg id="worldAvgTemp" width="460" height="400"></svg>
+                     <svg id="worldAvgTemp" width="460" height="350"></svg>
                    </div>
                 </div>
 
                 <script src="https://d3js.org/d3.v4.js"></script>
                 <script src="./js/mapTemp.js"></script>
 
-                <h5 class="text-center mt-5">Domain knowledge</h4>
-                <p class="mb-4 text-justify">blablabla</p>
+                <h5 class="text-center mt-5 mb-4">How much warmer is our planet?</h4>
+                <p class="mb-4 text-justify"><b>The 20 warmest years on record have been in the past 22 years</b>,
+                  with 2015-2018 making up the top four, according to the World Meteorological Organization (WMO).</p>
+                <p class="mb-4 text-justify">If this trend continues, temperatures may rise by 3-5°C by 2100.</p>
+                <p class="mb-4 text-justify">According to the Intergovernmental Panel on Climate Change (IPCC),
+                  <b>if countries fail to act, the world will face catastrophic change</b>
+                  - sea levels will rise, ocean temperatures and acidity will increase and our ability to grow crops,
+                  such as rice, maize, and wheat, would be in danger.</p>
+                <a href="https://www.bbc.com/news/science-environment-46384067"><p class="text-right" style="color:black"><i>source</i></p></a>
             </div>
         </section>
 
@@ -116,24 +124,46 @@
         <section class="page-section bg-dark text-white" id="co2">
             <div class="container text-center col-lg-9">
               <h2 class="text-center mt-0">CO2 and Deforestation</h2>
-
+              <p class="mb-1 mt-2 text-center" style="font-size: 0.8rem">Click on the play button to show the evaluation of the CO2 emission</p>
+              <p class="mb-4 mt-1 text-center" style="font-size: 0.8rem">Click on the country to show the forest coverage v.s. CO2 emission</p>
+              <button id="playCO2" class="buttonPlay my-1 mt-1"><img src="img/playPause.png" class="imgScale" ></button>
                  <div class = "row">
                    <div class="col-lg-6 col-sm-6">
-                     <svg id="mapCO2" width="460" height="400"></svg>
-                     <button id="playCO2" class="buttonPlay my-1 mt-1"><img src="img/playPause.png" class="imgScale" ></button>
+                     <svg id="mapCO2" width="460" height="320"></svg>
+                     <!-- <button id="playCO2" class="buttonPlay my-1 mt-1"><img src="img/playPause.png" class="imgScale" ></button> -->
                      <span id="clockCO2">year</span>
                    </div>
 
                    <div class="col-lg-6 col-sm-6">
-                     <svg id="mapCO2Line" width="460" height="400"></svg>
+                     <svg id="mapCO2Line" width="460" height="350"></svg>
                    </div>
                 </div>
 
                 <script src="https://d3js.org/d3.v4.js"></script>
                 <script src="./js/mapCO2.js"></script>
 
-              <h5 class="text-center mt-5">Domain knowledge</h4>
-              <p class="text-white-75 mb-4 text-justify">No one knows Deforestation better than me</p>
+                <h5 class="text-center mt-5 mb-4">How to erase carbon emissions? How much can forests fight climate change?</h4>
+                <p class="mb-1 text-justify text-white-75">Many governments and advocates have advanced plans to
+                  <b>plant vast numbers of trees to absorb carbon dioxide from the atmosphere in an attempt to slow climate change.</b>
+                  In the line chart, we can see that the forest coverage rate of some countries increases significantly in the last two decades,
+                  such as China, France, and the United Kingdom.
+                  However, that of some countries near the equator decrease due to the deforestation of the rainforest,
+                  such as Brazil and Venezuela.
+                  Results from a decade-long study of greenhouse gases over the Amazon basin appear to show that
+                  around 20% of the total area has become a net source of carbon dioxide in the atmosphere.</p>
+                  <a href="https://www.bbc.com/news/science-environment-51464694"><p class="mb-4 text-right"><i>source</i></p></a>
+
+                <p class="mb-4 text-justify text-white-75">If tree-planting programs work as advertised,
+                  they could buy precious time for the world to reduce its reliance on fossil fuels and replace them
+                  with cleaner sources of energy. One widely cited 2017 <a href="https://www.pnas.org/content/114/44/11645"> <i>study</i></a>
+                   estimated that <b>forests and other ecosystems could provide more than ⅓ of the total CO2 reductions required to keep global warming below 2 °C through to 2030.</b></p>
+
+                <p class="mb-4 text-justify text-white-75">Trees are supposed to slow global warming,
+                  but counting only on them is not enough. In some developing countries such as India and China,
+                  while the forest coverage rate is increasing, carbon emissions have also increased year by year
+                  for rapid development. <b>In order to further control climate change, industrial model transformation
+                  and new energy research should be carried out.</b></p>
+                <a href="https://www.nature.com/articles/d41586-019-00122-z"><p class="text-right"><i>source</i></p></a>
             </div>
         </section>
 
@@ -143,7 +173,7 @@
             <div class="container text-center col-lg-9">
                 <h2 class="text-center mt-0">Urbanization</h2>
                 <!-- <hr class="divider my-4" /> -->
-                <p class="mb-4 text-center">Click on green points</p>
+                <p class="mb-1 mt-2 text-center" style="font-size: 0.8rem">Click on green points to show data of a country</p>
                   <div class = "row">
                     <div class="col-lg-6 col-sm-6">
                         <svg id="urbForestTempScatter" width="100%" height="100%"></svg>
@@ -156,17 +186,25 @@
                   <script src="https://d3js.org/d3.v4.js"></script>
                   <script src="./js/scatter.js"></script>
 
-                <h5 class="text-center mt-5">Domain knowledge</h4>
-                <p class="mb-4 text-justify">No one knows Urbanization better than me</p>
+                  <h5 class="text-center mt-5 mb-4">Are cities bad for the environment?</h4>
+                  <p class="mb-4 text-justify">Cities are home to <b>54% of the global population</b> and
+                    the Intergovernmental Panel on Climate Change (IPCC) sais that they <b>consume approximately
+                    70% of energy and 75% of global carbon emissions</b>. By 2050, it is estimated that 68% of
+                    the global population will live in urban areas, meaning the use of resources in cities will rise. </p>
+                  <p class="mb-4 text-justify">In the scatter plot, we can notice that the points tend to move to upper right,
+                    which indicates a higher temperature and urbanization level of different countries.
+                    The process of urbanization also leads to a decline in forest coverage rate.</p>
+                  <a href="https://www.weforum.org/agenda/2019/09/climate-change-won-or-lost-in-cities-or-by-cities/"><p class="text-right" style="color: black"><i>source</i></p></a>
+
             </div>
         </section>
 
         <!-- Animals-->
         <section class="page-section" id="animalsSection" >
           <div class="container text-center col-lg-9" style="opacity: 1.0">
-            <h2 class="text-center mt-0">Animals</h2>
+            <h2 class="text-center mt-0">Living things</h2>
             <!-- <hr class="divider my-4" /> -->
-            <p class="mb-4 text-center">Click on images</p>
+            <p class="mb-1 mt-2 text-center" style="font-size: 0.8rem">Click on images to see data of a class of living things</p>
             <div class="row">
               <button class="button" onclick="plotSpecies('Mammals')"><img src="img/Mammals.jpg" class="imgScale" ></button>
               <button class="button" onclick="plotSpecies('Birds')"><img src="img/Birds.jpg" class="imgScale"></button>
@@ -174,7 +212,7 @@
               <button class="button" onclick="plotSpecies('Fungi&protists')"><img src="img/Fungi&protists.jpg" class="imgScale"></button>
               <button class="button" onclick="plotSpecies('Molluscs')"><img src="img/Molluscs.jpg" class="imgScale"></button>
               <button class="button" onclick="plotSpecies('Amphibians')"><img src="img/Amphibians.jpg" class="imgScale"></button>
-              <button class="button" onclick="plotSpecies('Fishes')"><img src="img/Fishes.jpg" class="imgScale"></button>
+              <button class="button" onclick="plotSpecies('Insects')"><img src="img/Insects.jpg" class="imgScale"></button>
               <button class="button" onclick="plotSpecies('Reptiles')"><img src="img/Reptiles.jpg" class="imgScale"></button>
               <button class="button" onclick="plotSpecies('Plants')"><img src="img/Plants.jpg" class="imgScale"></button>
               <button class="button" onclick="plotSpecies('Other_invertebrates')"><img src="img/Other_invertebrates.jpg" class="imgScale"></button>
@@ -192,8 +230,23 @@
 
             <script src="https://d3js.org/d3.v4.js"></script>
             <script src="./js/animals.js"></script>
-            <h5 class="text-center mt-5">Domain knowledge</h4>
-            <p class="mb-4 text-justify">No one knows animals better than me</p>
+
+            <h5 class="text-center mt-5 mb-4">What about the animals?</h4>
+            <p class="mb-2 text-justify">According to the IUCN, there are over <span style="font-size:1.5rem">30'000</span> endangered species.
+              <span style="font-size:1.5rem">25%</span> of all assessed species of mammals are in danger.</p>
+            <p class="mb-2 text-justify">There are between <span style="font-size:1.5rem">200 -2'000</span> extinctions that occur every year.</p>
+            <p class="mb-2 text-justify">The current rate of extinction is <span style="font-size:1.5rem">1’000x - 10’000x</span>  higher than the natural extinction rate.</p>
+
+            <p class="mb-4 text-justify">There have been <b>5 big mass extinctions</b> in geologic history,
+              in which <b>4 are closely related to climate change and extreme meteor</b>.</p>
+            <p class="mb-4 text-justify">Polar bears are one of the first <b>victims of climate change</b>.
+              The melting of the ice caps means their feeding ranges are restricted, while their homes are melting before their very eyes.
+              Further polar bears extinction facts show that, if nothing changes for the bears quickly,
+              their numbers will decline by 30% in the next three decades.</p>
+            <p class="mb-4 text-justify">There are seven species of sea turtles. Of these seven species, six are endangered or threatened.
+              The sea turtle extinction facts show that one of the major hazards for sea turtles is sea-level rise <b>due to climate change</b>.</p>
+            <a href="https://www.weforum.org/agenda/2019/09/climate-change-won-or-lost-in-cities-or-by-cities/"><p class="text-right" style="color: black"><i>source</i></p></a>
+
           </div>
         </section>
 

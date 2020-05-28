@@ -89,9 +89,17 @@ We have found in [this website](https://ourworldindata.org/urbanization) some be
 
 **80% of the final grade**
 
+**Final result**
+
 We build a [website]( https://com-480-data-visualization.github.io/com-480-project-zalda/ ) for our project. We encourage the user to interact with mouse by clicking or placing the mouse at a certain position.
 
 To have a better idea of the navigation of our website, you can watch a demo [video](https://youtu.be/OimlEKNZVxs).
 
 We have also written a [process book](processBook.pdf) to describe the path we took to obtain the final result.
+
+**Tools**
+
+We used python to preprocess data. 
+
+The implementation is based on HTML, CSS and JavaScript. All our visualizations are made with d3.v4.js, including maps, scatter plots and line plots, and all interactivities.
 

@@ -1,7 +1,7 @@
 /* ******************** world temperature map settings ************************* */
 // The worldMap_temperature
 var marginMapTemp = {top: 20 , right: 20, bottom: 20, left: 20};   // top left is the origin of a svg, x leftward, y downward
-var beginYearMapTemp = 1898, yearIndMapTemp = 0, playingMapTemp = true, mapTempDuration = 200, timer;  // create timer object;
+var beginYearMapTemp = 1898, yearIndMapTemp = 0, playingMapTemp = true, mapTempDuration = 200, formatOut = d3.format(".2f"), timer;  // create timer object;
 var svgMapTemp = d3.select("#mapTemp"),
     widthMapTemp = +svgMapTemp.attr("width"),
     heightMapTemp = +svgMapTemp.attr("height");
@@ -16,7 +16,7 @@ var projection = d3.geoEquirectangular()
 var dataMapTemp = d3.map();
 var colorScaleMapTemp = d3.scaleLinear()
                           .domain([-2, 0, 2])
-                          .range(['blue', "yellow", "red"]);
+                          .range(['#76c9d4', "#cccccc", "red"]);
 var tooltip = d3.select("body")
                 .append("div")
                 .style("position", "absolute")
@@ -95,10 +95,11 @@ function setWorldTempMap()
         .duration(50)
         .style("opacity", 1)
         // .style("stroke", "black")
-      tooltip.text(d.properties['name'])
+
+      tooltip.text(d.properties['name'] +": "+ formatOut(d.total) + "ºC")
              .style("visibility", "visible")
 
-      console.log(d.total)
+      // console.log(d.total)
     }
 
     let mouseLeaveMap = function(d) {
@@ -116,10 +117,12 @@ function setWorldTempMap()
     let mouseMoveMap = function(d){
       tooltip.style("top", (d3.event.pageY-10)+"px")
              .style("left",(d3.event.pageX+10)+"px")
+             .text(d.properties['name'] +": "+ formatOut(d.total) + "ºC")
+             .style("visibility", "visible")
     }
 
     let mouseClickMap = function(d) {
-      console.log(d.properties['name'])
+      // console.log(d.properties['name'])
 
     }
 
@@ -166,8 +169,8 @@ function setWorldTempMap()
     }
 
 
-    console.log(dataMapTemp)
-    console.log(dataWorldAvgTemp)
+    // console.log(dataMapTemp)
+    // console.log(dataWorldAvgTemp)
 
     // Draw line chart
     // Scale the range of the data
@@ -272,12 +275,13 @@ function setWorldTempMap()
       .attr("fill", function (d) {
         thisTemp = dataMapTemp.get(d.properties.name);
         if (typeof(thisTemp) === "undefined"){
-          d.total = 0;
+          return "#808080";
         }
         else{
           d.total = thisTemp[yearIndMapTemp];
+          return colorScaleMapTemp(d.total);
         }  
-        return colorScaleMapTemp(d.total);
+        
       })
       .style("stroke", "transparent")
       .attr("class", function(d){ return "Country" } )
@@ -287,6 +291,14 @@ function setWorldTempMap()
       .on("mouseleave", mouseLeaveMap )
       .on("mousemove", mouseMoveMap )
       .on("click", mouseClickMap )
+
+    svgMapTemp.append("text")
+              .attr("class", "title")
+              .attr("x", (widthAvgTempLine/2 + marginAvgTempLine.left))
+              .attr("y", (marginAvgTempLine.top/2 + 20) )
+              .attr("text-anchor", "middle")
+              .style("font-size", "16px")
+              .text("Country-wise warming");
 
     playMapandLine()
   }
@@ -342,14 +354,12 @@ function sequenceWorldTempMap() {
       .attr('fill', function(d) {
           thisTemp = dataMapTemp.get(d.properties.name);
           if (typeof(thisTemp) === "undefined"){
-            d.total = 0;
+            return "#808080";
           }
           else{
             d.total = thisTemp[yearIndMapTemp];
-          }  
-          // console.log(d.properties.name, d.total)
-
-        return colorScaleMapTemp(d.total);  // the end color value
+            return colorScaleMapTemp(d.total);  // the end color value
+          }          
       })
 }
 

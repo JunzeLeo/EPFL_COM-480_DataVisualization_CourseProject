@@ -159,7 +159,7 @@ function loopData (dataPath){
                    .domain([-19, 31])
                    .range([ height, 0]);
 
-    setTimeout(clock_urban.html(currentYear), frameRate);
+    clock_urban.html(currentYear);
     data1 = alldata.filter(function(d) {return d.year == currentYear})
     svgScatter.selectAll("circle")
         .data(data1)

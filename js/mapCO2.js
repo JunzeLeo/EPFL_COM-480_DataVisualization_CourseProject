@@ -16,7 +16,7 @@ var projectionCO2 = d3.geoEquirectangular()
 var dataMapTempCO2 = d3.map();
 var colorScaleMapTempCO2 = d3.scaleLinear()
                           .domain([-2, 0, 2])
-                          .range(['blue', "yellow", "red"]);
+                          .range(['#17e890', "#cccccc", "red"]);
 
 var tooltipCO2 = d3.select("body")
       .append("div")
@@ -141,20 +141,23 @@ function drawCountryAxis(countryName, countFullName)
   svgAvgTempLineCO2.append("text")
                 .style("stroke", "white")
                 .style("fill", "white")
+                .style("font", "16px times")
                 .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-                .attr("transform", "translate("+ 12 +","+((heightAvgTempLineCO2 + marginAvgTempLineCO2.top + marginAvgTempLineCO2.bottom)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+                .attr("transform", "translate("+ 11 +","+((heightAvgTempLineCO2 + marginAvgTempLineCO2.top + marginAvgTempLineCO2.bottom)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
                 .text("CO2 emission (ton/capita)");
 
   svgAvgTempLineCO2.append("text")
                   .style("stroke", "white")
                   .style("fill", "white")
+                  .style("font", "16px times")
                   .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-                  .attr("transform", "translate("+ (marginAvgTempLineCO2.left+widthAvgTempLineCO2+marginAvgTempLineCO2.right) +","+((heightAvgTempLineCO2 + marginAvgTempLineCO2.top + marginAvgTempLineCO2.bottom)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+                  .attr("transform", "translate("+ (marginAvgTempLineCO2.left+widthAvgTempLineCO2+marginAvgTempLineCO2.right - 5) +","+((heightAvgTempLineCO2 + marginAvgTempLineCO2.top + marginAvgTempLineCO2.bottom)/2) +")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
                   .text("Forest coverage(%)");
 
   svgAvgTempLineCO2.append("text")
                 .style("stroke", "white")
                 .style("fill", "white")
+                .style("font", "16px times")
                 .attr("x", (widthAvgTempLineCO2/2 + marginAvgTempLineCO2.left))
                 .attr("y", (heightAvgTempLineCO2 + marginAvgTempLineCO2.top + marginAvgTempLineCO2.bottom) )
                 .attr("text-anchor", "middle")
@@ -170,12 +173,14 @@ function drawCountryAxis(countryName, countFullName)
                 .attr("text-anchor", "middle")
                 .style("font-size", "16px")
                 .text("Forest Coverage v.s. CO2 emission of")
+                .style("font-size", "14px")
                 .append('svg:tspan')
                 .attr('x', 0)
                 .attr('dy', 20)
                 .attr("x", (widthAvgTempLineCO2/2 + marginAvgTempLineCO2.left))
                 .attr("y", (marginAvgTempLineCO2.top/2) )
-                .text(countFullName);
+                .text(countFullName)
+                .style("font-size", "14px");
 
   // add gridlines
   svgAvgTempLineCO2.append("g")
@@ -270,9 +275,10 @@ function setWorldTempMapCO2()
         .duration(50)
         .style("opacity", 1)
 
-      tooltipCO2.text(d.properties['name'])
+      // console.log(d)
+      tooltipCO2.text(d.properties['name'] +": "+ formatOut(d.totalCO2))
              .style("visibility", "visible")
-             .style("stroke", "white")
+             .style("color", "white")
 
         // .style("stroke", "black")
 
@@ -295,7 +301,8 @@ function setWorldTempMapCO2()
     let mousemove = function(d){
       tooltipCO2.style("top", (d3.event.pageY-10)+"px")
              .style("left",(d3.event.pageX+10)+"px")
-             .style("color", "gray")
+             .text(d.properties['name'] +": "+ formatOut(d.totalCO2))
+             .style("color", "white")
     }
 
     let mouseClick = function(d) {
@@ -321,12 +328,12 @@ function setWorldTempMapCO2()
       .attr("fill", function (d) {
         thisTempCO2 = dataMapTempCO2.get(d.id);
         if (typeof(thisTempCO2) === "undefined"){
-          d.totalCO2 = 0;
+          return "#808080";
         }
         else{
           d.totalCO2 = thisTempCO2[yearIndMapTempCO2];
+          return colorScaleMapTempCO2(d.totalCO2);
         }
-        return colorScaleMapTempCO2(d.totalCO2);
       })
       .style("stroke", "transparent")
       .attr("class", function(d){ return "CountryCO2" } )
@@ -336,6 +343,16 @@ function setWorldTempMapCO2()
       .on("mouseleave", mouseLeave )
       .on("mousemove", mousemove )
       .on("click", mouseClick )
+
+    svgMapTempCO2.append("text")
+            .attr("class", "title")
+            .style("stroke", "white")
+            .style("fill", "white")            
+            .attr("x", (widthAvgTempLineCO2/2 + marginAvgTempLineCO2.left))
+            .attr("y", (marginAvgTempLineCO2.top/2 + 20) )
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .text("Country-wise CO2 Emission");
 
       playingMapAnimation()
   }
@@ -350,13 +367,12 @@ function sequenceWorldTempMapCO2() {
           thisTempCO2 = dataMapTempCO2.get(d.id);
           if (typeof(thisTempCO2) === "undefined"){
             d.totalCO2 = 0;
+            return "#808080";
           }
           else{
             d.totalCO2 = thisTempCO2[yearIndMapTempCO2];
-          }
-          // console.log(d.properties.name, d.totalCO2)
-
-        return colorScaleMapTempCO2(d.totalCO2);  // the end color value
+            return colorScaleMapTempCO2(d.totalCO2);  // the end color value
+          }        
       })
 }
 

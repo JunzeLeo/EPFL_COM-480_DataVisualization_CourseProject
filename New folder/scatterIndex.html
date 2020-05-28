@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- <html lang="en"> -->
+<meta charset="utf-8">
+
+<style type="text/css">
+	.grid line {
+	  stroke: lightgrey;
+	  stroke-opacity: 0.7;
+	  shape-rendering: crispEdges;
+	}
+
+</style>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Scatter plot</title>
+	<meta name="description" content="Scatter plot">
+</head>
+
+
+<body>
+<!-- Create an element where the map will take place -->
+<svg id="scatter" width="400" height="300"></svg>
+<button id="play">pause</button>
+<span id="clock">year</span>
+
+<svg id="scatterLine" width="400" height="200"></svg>
+
+<!-- Load d3.js -->
+<script src="http://d3js.org/d3.v4.js"></script>
+<script src="scatter.js"></script>
+<script src="mapFunctions/lib/d3.min.js"></script>
+
+</body>
+</html>
